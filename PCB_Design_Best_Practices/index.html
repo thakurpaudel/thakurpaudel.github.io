@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PCB Design Best Practices for Beginners | Thakur Paudel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #00ff41;
+            --secondary-color: #0066ff;
+            --bg-dark: #0a0e1a;
+            --bg-card: #1a1f35;
+            --text-light: #e0e0e0;
+            --text-dark: #a0a0a0;
+            --trace-color: rgba(0, 255, 65, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .pcb-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+                linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 31, 53, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 2px solid var(--primary-color);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.3s;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .blog-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .blog-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid rgba(0, 255, 65, 0.2);
+        }
+
+        .blog-title {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .meta-item i {
+            color: var(--primary-color);
+        }
+
+        .blog-content {
+            background: var(--bg-card);
+            padding: 3rem;
+            border-radius: 10px;
+            border: 2px solid rgba(0, 255, 65, 0.2);
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.1);
+        }
+
+        .blog-intro {
+            font-size: 1.15rem;
+            color: var(--text-dark);
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(0, 255, 65, 0.05);
+            border-left: 4px solid var(--primary-color);
+            border-radius: 5px;
+        }
+
+        .blog-content h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .blog-content h3 {
+            color: var(--secondary-color);
+            font-size: 1.3rem;
+            margin-top: 2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .blog-content p {
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .blog-content ul {
+            color: var(--text-dark);
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-content li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 0.5rem;
+        }
+
+        .blog-content li::marker {
+            color: var(--primary-color);
+        }
+
+        .blog-content a {
+            color: var(--primary-color);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s;
+        }
+
+        .blog-content a:hover {
+            border-bottom-color: var(--primary-color);
+        }
+
+        .info-box {
+            background: rgba(0, 102, 255, 0.1);
+            border-left: 4px solid var(--secondary-color);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 5px;
+        }
+
+        .info-box strong {
+            color: var(--secondary-color);
+        }
+
+        .warning-box {
+            background: rgba(255, 165, 0, 0.1);
+            border-left: 4px solid #ffa500;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 5px;
+        }
+
+        .warning-box strong {
+            color: #ffa500;
+        }
+
+        .tip-box {
+            background: rgba(0, 255, 65, 0.05);
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 5px;
+        }
+
+        .tip-box strong {
+            color: var(--primary-color);
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: rgba(0, 255, 65, 0.03);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .spec-table th,
+        .spec-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+        }
+
+        .spec-table th {
+            background: rgba(0, 255, 65, 0.1);
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .spec-table td {
+            color: var(--text-dark);
+        }
+
+        .spec-table tr:last-child td {
+            border-bottom: none;
+        }
+
+
+
+        .back-link {
+            display: inline-flex !important;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            margin-top: 3rem;
+            padding: 0.8rem 1.5rem;
+            border: 2px solid var(--primary-color) !important;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            background: var(--primary-color);
+            color: var(--bg-dark);
+            transform: translateX(-5px);
+        }
+
+        .footer {
+            background: var(--bg-card);
+            padding: 2rem;
+            text-align: center;
+            border-top: 2px solid var(--primary-color);
+            margin-top: 4rem;
+        }
+
+        .footer p {
+            color: var(--text-dark);
+        }
+
+        @media (max-width: 768px) {
+            .blog-title {
+                font-size: 1.8rem;
+            }
+
+            .blog-content {
+                padding: 1.5rem;
+            }
+
+            .blog-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .spec-table {
+                font-size: 0.9rem;
+            }
+
+            .spec-table th,
+            .spec-table td {
+                padding: 0.75rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="pcb-background"></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-microchip"></i>
+                Thakur Paudel
+            </a>
+            <ul class="nav-menu">
+                <li><a href="../index.html#home" class="nav-link">Home</a></li>
+                <li><a href="../index.html#projects" class="nav-link">Projects</a></li>
+                <li><a href="../index.html#blogs" class="nav-link active">Blogs</a></li>
+                <li><a href="../index.html#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="blog-container">
+        <header class="blog-header">
+            <h1 class="blog-title">PCB Design Best Practices for Beginners</h1>
+            <div class="blog-meta">
+                <span class="meta-item">
+                    <i class="far fa-calendar"></i>
+                    November 2025
+                </span>
+                <span class="meta-item">
+                    <i class="fas fa-tag"></i>
+                    Hardware Design
+                </span>
+                <span class="meta-item">
+                    <i class="far fa-clock"></i>
+                    12 min read
+                </span>
+            </div>
+        </header>
+
+        <article class="blog-content">
+            <div class="blog-intro">
+                Designing a Printed Circuit Board (PCB) is both an art and a science. Whether you're creating a simple
+                hobby project or a professional product, following best practices ensures your board works reliably,
+                manufactures smoothly, and performs as expected. This guide covers essential principles every beginner
+                should master.
+            </div>
+
+            <h2><i class="fas fa-compass-drafting"></i> 1. Planning Your PCB Design</h2>
+            <p>Before opening your PCB design software, proper planning saves countless hours of revision.</p>
+
+            <h3>Define Requirements</h3>
+            <ul>
+                <li><strong>Board size:</strong> Know your enclosure dimensions or size constraints</li>
+                <li><strong>Layer count:</strong> Start with 2-layer for simple designs, 4+ for complex circuits</li>
+                <li><strong>Power requirements:</strong> Calculate maximum current for each power rail</li>
+                <li><strong>Signal types:</strong> Identify high-speed signals, analog sections, and sensitive lines
+                </li>
+                <li><strong>Environmental factors:</strong> Operating temperature, humidity, vibration</li>
+            </ul>
+
+            <h3>Create a Block Diagram</h3>
+            <p>Sketch how different sections of your circuit connect. This helps visualize component placement and
+                signal flow before detailed design.</p>
+
+            <div class="tip-box">
+                <strong>Pro Tip:</strong> Always design with manufacturing in mind. Check your PCB fabricator's
+                capabilities (minimum trace width, drill sizes, etc.) before starting your layout.
+            </div>
+
+            <h2><i class="fas fa-ruler-combined"></i> 2. Component Placement Strategy</h2>
+            <p>Good component placement is 70% of a successful PCB design. Poor placement cannot be fixed with routing.
+            </p>
+
+            <h3>General Placement Rules</h3>
+            <ul>
+                <li><strong>Group by function:</strong> Keep related components together (power supply, microcontroller
+                    section, sensors, etc.)</li>
+                <li><strong>Signal flow:</strong> Arrange components to follow the logical signal path from input to
+                    output</li>
+                <li><strong>Keep critical components close:</strong> Minimize trace length between high-speed components
+                </li>
+                <li><strong>Orientation:</strong> Align similar components in the same direction for easier assembly and
+                    inspection</li>
+                <li><strong>Connector placement:</strong> Position connectors at board edges for easy access</li>
+            </ul>
+
+            <h3>Component-Specific Guidelines</h3>
+            <ul>
+                <li><strong>Decoupling capacitors:</strong> Place as close as possible to IC power pins (within 5mm
+                    ideally)</li>
+                <li><strong>Crystals/oscillators:</strong> Keep near microcontroller with short, symmetric traces</li>
+                <li><strong>High-power components:</strong> Consider thermal management and heat dissipation paths</li>
+                <li><strong>Sensitive analog:</strong> Keep away from digital switching circuits and power supplies</li>
+            </ul>
+
+            <div class="warning-box">
+                <strong>Common Mistake:</strong> Placing components without considering the routing. Always do a mental
+                trace routing exercise during placement to avoid impossible routing situations later.
+            </div>
+
+            <h2><i class="fas fa-route"></i> 3. PCB Layer Stack-Up</h2>
+            <p>Understanding layer configuration is crucial for signal integrity and EMI control.</p>
+
+            <h3>2-Layer Board</h3>
+            <ul>
+                <li><strong>Top layer:</strong> Components and signal routing</li>
+                <li><strong>Bottom layer:</strong> Ground plane with minimal signal routing</li>
+                <li>Best for: Simple designs, low-speed circuits, hobby projects</li>
+            </ul>
+
+            <h3>4-Layer Board</h3>
+            <ul>
+                <li><strong>Layer 1 (Top):</strong> Signal routing and components</li>
+                <li><strong>Layer 2:</strong> Ground plane (solid)</li>
+                <li><strong>Layer 3:</strong> Power plane (solid or split for different voltages)</li>
+                <li><strong>Layer 4 (Bottom):</strong> Signal routing</li>
+                <li>Best for: Professional products, high-speed designs, better EMI performance</li>
+            </ul>
+
+            <div class="info-box">
+                <strong>Why solid planes matter:</strong> Continuous ground and power planes provide low-impedance
+                return paths for signals, reduce EMI, and improve power distribution. They're worth the extra
+                manufacturing cost for complex designs.
+            </div>
+
+            <h2><i class="fas fa-bezier-curve"></i> 4. Trace Width and Spacing</h2>
+            <p>Proper trace dimensions ensure reliable current carrying capacity and prevent manufacturing issues.</p>
+
+            <h3>Minimum Trace Widths</h3>
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>Current (A)</th>
+                        <th>Trace Width (1 oz copper)</th>
+                        <th>Application</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>0.1 A</td>
+                        <td>0.15 mm (6 mil)</td>
+                        <td>Signal traces</td>
+                    </tr>
+                    <tr>
+                        <td>0.5 A</td>
+                        <td>0.3 mm (12 mil)</td>
+                        <td>Low power supply</td>
+                    </tr>
+                    <tr>
+                        <td>1 A</td>
+                        <td>0.6 mm (24 mil)</td>
+                        <td>Power distribution</td>
+                    </tr>
+                    <tr>
+                        <td>2 A</td>
+                        <td>1.2 mm (47 mil)</td>
+                        <td>High current paths</td>
+                    </tr>
+                    <tr>
+                        <td>3 A+</td>
+                        <td>2+ mm or use planes</td>
+                        <td>Power supply output</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Trace Spacing Guidelines</h3>
+            <ul>
+                <li><strong>Minimum spacing:</strong> 0.15 mm (6 mil) for standard PCB fab houses</li>
+                <li><strong>High voltage (>50V):</strong> 0.5 mm minimum, follow IPC-2221 standards</li>
+                <li><strong>RF traces:</strong> Maintain 3x trace width spacing from other traces</li>
+                <li><strong>Differential pairs:</strong> Keep spacing consistent, typically 2x trace width</li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>Pro Tip:</strong> Use an online trace width calculator (like the one at 4pcb.com) to determine
+                proper widths based on current, temperature rise, and copper weight.
+            </div>
+
+            <h2><i class="fas fa-plug"></i> 5. Power Distribution Best Practices</h2>
+            <p>Proper power delivery is critical for stable circuit operation.</p>
+
+            <h3>Power Plane Strategy</h3>
+            <ul>
+                <li>Use solid power planes on internal layers for 4+ layer boards</li>
+                <li>For 2-layer boards, use wide power traces (1mm+) or copper pours</li>
+                <li>Star topology for analog power distribution</li>
+                <li>Place power components (regulators, bulk capacitors) near the board edge or power input</li>
+            </ul>
+
+            <h3>Decoupling Network</h3>
+            <ul>
+                <li><strong>Bulk capacitors (10-100 µF):</strong> Near power input, handles transients</li>
+                <li><strong>Ceramic capacitors (0.1-1 µF):</strong> At each IC power pin, handles high-frequency noise
+                </li>
+                <li><strong>Placement:</strong> Shortest possible path from capacitor to IC power and ground pins</li>
+                <li><strong>Via placement:</strong> Use multiple vias for ground connections to reduce inductance</li>
+            </ul>
+
+            <h3>Ground Return Paths</h3>
+            <ul>
+                <li>Never split ground planes unless absolutely necessary (analog/digital isolation)</li>
+                <li>Ensure low-impedance return paths directly under signal traces</li>
+                <li>Use stitching vias to connect ground planes on different layers</li>
+                <li>Keep high-current return paths short and wide</li>
+            </ul>
+
+            <div class="warning-box">
+                <strong>Critical:</strong> Ground loops can cause noise and instability. Design single-point grounding
+                for sensitive analog circuits and connect analog/digital grounds at only one point, usually near the
+                power supply.
+            </div>
+
+            <h2><i class="fas fa-wave-square"></i> 6. Signal Integrity Considerations</h2>
+            <p>For digital circuits above 10 MHz and all high-speed interfaces, signal integrity becomes crucial.</p>
+
+            <h3>High-Speed Signal Rules</h3>
+            <ul>
+                <li><strong>Keep traces short:</strong> Minimize length, especially for clock signals</li>
+                <li><strong>Controlled impedance:</strong> Use impedance calculators for critical signals (USB,
+                    Ethernet, PCIe)</li>
+                <li><strong>Differential pairs:</strong> Route as pairs with consistent spacing (typically 50Ω or 100Ω)
+                </li>
+                <li><strong>Length matching:</strong> Match trace lengths for differential pairs and parallel buses</li>
+                <li><strong>Avoid stubs:</strong> No unterminated trace branches on high-speed lines</li>
+            </ul>
+
+            <h3>Clock Signal Design</h3>
+            <ul>
+                <li>Route on surface layers with solid ground plane underneath</li>
+                <li>Minimize vias and layer changes</li>
+                <li>Keep away from board edges and noisy signals</li>
+                <li>Add series termination resistors close to the source</li>
+                <li>Use guard traces (grounded) around critical clock lines</li>
+            </ul>
+
+            <h3>Reducing Crosstalk</h3>
+            <ul>
+                <li>Increase spacing between parallel traces (3-5x trace width)</li>
+                <li>Route critical signals on different layers perpendicular to each other</li>
+                <li>Use ground traces between sensitive signals as shields</li>
+                <li>Minimize parallel run length of high-speed traces</li>
+            </ul>
+
+            <div class="info-box">
+                <strong>When is signal integrity important?</strong> Generally for signals above 50 MHz, edges faster
+                than 2 ns, or any communication protocol (SPI, I2C, USB, Ethernet). For Arduino-level projects (16 MHz),
+                basic routing practices usually suffice.
+            </div>
+
+            <h2><i class="fas fa-bolt"></i> 7. Via Design and Usage</h2>
+            <p>Vias connect layers but add inductance and capacitance. Use them wisely.</p>
+
+            <h3>Via Types and Applications</h3>
+            <ul>
+                <li><strong>Through-hole vias:</strong> Standard, connect all layers, cheapest</li>
+                <li><strong>Blind vias:</strong> From outer layer to internal layer (more expensive)</li>
+                <li><strong>Buried vias:</strong> Between internal layers only (premium cost)</li>
+            </ul>
+
+            <h3>Via Guidelines</h3>
+            <ul>
+                <li><strong>Minimum via size:</strong> 0.3 mm (12 mil) drill with 0.6 mm (24 mil) pad for standard fab
+                </li>
+                <li><strong>Power/ground vias:</strong> Use multiple vias in parallel to reduce resistance</li>
+                <li><strong>High-speed signals:</strong> Minimize via count, use larger vias when necessary</li>
+                <li><strong>Thermal relief:</strong> Use for hand-soldering pads connected to planes</li>
+                <li><strong>Via stitching:</strong> Place vias every 20 mm around ground planes for EMI control</li>
+            </ul>
+
+            <h2><i class="fas fa-temperature-high"></i> 8. Thermal Management</h2>
+            <p>Heat dissipation can make or break your design, especially for power electronics.</p>
+
+            <h3>Thermal Design Strategies</h3>
+            <ul>
+                <li><strong>Copper pour:</strong> Create large copper areas under hot components for heat spreading</li>
+                <li><strong>Thermal vias:</strong> Array of vias under power components to conduct heat to other layers
+                </li>
+                <li><strong>Component spacing:</strong> Allow adequate airflow around hot components</li>
+                <li><strong>Heatsink pads:</strong> Design exposed copper pads for thermal interface with heatsinks</li>
+                <li><strong>Layer selection:</strong> Place high-power components on outer layers for better cooling
+                </li>
+            </ul>
+
+            <h3>Thermal Via Array</h3>
+            <p>For components with thermal pads (voltage regulators, MOSFETs):</p>
+            <ul>
+                <li>Use 9-16 thermal vias (0.3 mm) in a grid pattern</li>
+                <li>Connect to solid copper on inner/bottom layers</li>
+                <li>Maximize copper area on all layers under the component</li>
+            </ul>
+
+            <div class="warning-box">
+                <strong>Watch out:</strong> Components generating more than 500 mW typically need thermal
+                considerations. Always check component datasheets for thermal resistance and junction temperature
+                limits.
+            </div>
+
+            <h2><i class="fas fa-shield-alt"></i> 9. EMI/EMC Design Principles</h2>
+            <p>Electromagnetic compatibility ensures your device doesn't interfere with others and isn't susceptible to
+                interference.</p>
+
+            <h3>Basic EMI Reduction Techniques</h3>
+            <ul>
+                <li><strong>Solid ground plane:</strong> Your first line of defense against EMI</li>
+                <li><strong>Edge clearance:</strong> Keep traces 20+ mil from board edge</li>
+                <li><strong>Ferrite beads:</strong> Place on power inputs and high-frequency lines</li>
+                <li><strong>Shielding:</strong> Use grounded copper pours around sensitive or noisy sections</li>
+                <li><strong>Cable positioning:</strong> Route cables away from high-frequency circuits</li>
+            </ul>
+
+            <h3>Board-Level Shielding</h3>
+            <ul>
+                <li>Surround RF sections with grounded guard traces or copper pour</li>
+                <li>Use stitching vias to create "fence" around sensitive areas</li>
+                <li>Connect shielding can to ground with multiple points</li>
+                <li>Keep antenna keep-out zones clear per module specifications</li>
+            </ul>
+
+            <h2><i class="fas fa-industry"></i> 10. Design for Manufacturing (DFM)</h2>
+            <p>Following DFM rules prevents costly manufacturing issues and improves yield.</p>
+
+            <h3>PCB Fabrication DFM</h3>
+            <ul>
+                <li><strong>Minimum features:</strong> Stay above 6 mil (0.15 mm) for traces and spacing</li>
+                <li><strong>Minimum drill:</strong> 0.3 mm (12 mil) for standard fabrication</li>
+                <li><strong>Annular ring:</strong> Minimum 4 mil (0.1 mm) around holes</li>
+                <li><strong>Copper balance:</strong> Distribute copper evenly across board to prevent warping</li>
+                <li><strong>Board outline:</strong> Use rounded corners (radius 5+ mil) for mechanical strength</li>
+            </ul>
+
+            <h3>Assembly DFM</h3>
+            <ul>
+                <li><strong>Component spacing:</strong> Allow 0.5 mm minimum between adjacent components</li>
+                <li><strong>Orientation:</strong> Keep polarized components facing the same direction</li>
+                <li><strong>Fiducial marks:</strong> Add 3 non-collinear fiducials for automated assembly</li>
+                <li><strong>Silkscreen:</strong> Add reference designators for all components (clear, readable)</li>
+                <li><strong>Test points:</strong> Provide accessible test points for critical signals</li>
+                <li><strong>Tooling holes:</strong> Add mounting holes for assembly fixtures</li>
+            </ul>
+
+            <h3>Panelization Considerations</h3>
+            <ul>
+                <li>Design for efficient panel utilization (minimize waste)</li>
+                <li>Add mouse bites or V-score breakaway tabs</li>
+                <li>Include panel border (5+ mm) for handling</li>
+                <li>Place fiducials on panel, not just individual boards</li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>Pro Tip:</strong> Always generate and review manufacturing files (Gerbers, drill files, assembly
+                drawings) before ordering. Use free Gerber viewers like gerbv or online viewers to catch errors.
+            </div>
+
+            <h2><i class="fas fa-clipboard-check"></i> 11. Design Review Checklist</h2>
+            <p>Before sending your design to manufacturing, verify these critical items:</p>
+
+            <h3>Schematic Review</h3>
+            <ul>
+                <li>All components have correct values and part numbers</li>
+                <li>Power supply decoupling adequate for all ICs</li>
+                <li>Pull-up/pull-down resistors on all critical pins</li>
+                <li>Proper termination for communication buses</li>
+                <li>ERC (Electrical Rule Check) passes with no errors</li>
+            </ul>
+
+            <h3>Layout Review</h3>
+            <ul>
+                <li>DRC (Design Rule Check) passes completely</li>
+                <li>All components have correct footprints</li>
+                <li>Decoupling capacitors placed optimally</li>
+                <li>Power trace widths adequate for current</li>
+                <li>High-speed signals routed properly</li>
+                <li>Ground plane continuity verified</li>
+                <li>Silkscreen readable and not covering pads/vias</li>
+                <li>All mounting holes and connectors positioned correctly</li>
+            </ul>
+
+            <h3>Manufacturing Files</h3>
+            <ul>
+                <li>Gerber files include all necessary layers</li>
+                <li>Drill file matches via and hole sizes</li>
+                <li>Board outline defined clearly</li>
+                <li>Assembly drawings show component placement</li>
+                <li>BOM (Bill of Materials) is complete and accurate</li>
+            </ul>
+
+            <h2><i class="fas fa-tools"></i> 12. Recommended PCB Design Tools</h2>
+
+            <h3>For Beginners</h3>
+            <ul>
+                <li><strong>KiCad:</strong> Free, open-source, professional-grade capabilities</li>
+                <li><strong>EasyEDA:</strong> Free, browser-based, integrated with JLCPCB</li>
+                <li><strong>Fusion 360 with EAGLE:</strong> Free for hobbyists, good for mechanical integration</li>
+            </ul>
+
+            <h3>Professional Tools</h3>
+            <ul>
+                <li><strong>Altium Designer:</strong> Industry standard, powerful features, expensive</li>
+                <li><strong>OrCAD:</strong> Professional tool, widely used in aerospace/defense</li>
+                <li><strong>PADS:</strong> Popular in consumer electronics</li>
+            </ul>
+
+
+            <h2><i class="fas fa-check-circle"></i> Conclusion</h2>
+            <ul>
+                <p>PCB design is a skill that improves with practice. By following these best practices, you’ll create
+                    cleaner layouts, reduce debugging time, and build more reliable hardware. Whether you're designing
+                    hobby
+                    circuits or professional products, mastering these fundamentals puts you ahead in the world of
+                    electronics.</p>
+            </ul>
+
+
+            <a href="../blogs.html" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Back to Blogs
+            </a>
+        </article>
+
+    </div>
+</body>
+
+<footer class="footer">
+    <p>© 2024 Thakur Paudel. All rights reserved.</p>
+</footer>
+
+</html>
