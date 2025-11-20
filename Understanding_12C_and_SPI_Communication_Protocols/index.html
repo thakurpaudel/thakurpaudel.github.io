@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PCB Design Best Practices for Beginners | Thakur Paudel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #00ff41;
+            --secondary-color: #0066ff;
+            --bg-dark: #0a0e1a;
+            --bg-card: #1a1f35;
+            --text-light: #e0e0e0;
+            --text-dark: #a0a0a0;
+            --trace-color: rgba(0, 255, 65, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .pcb-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+                linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 31, 53, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 2px solid var(--primary-color);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.3s;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .blog-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .blog-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid rgba(0, 255, 65, 0.2);
+        }
+
+        .blog-title {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .meta-item i {
+            color: var(--primary-color);
+        }
+
+        .blog-content {
+            background: var(--bg-card);
+            padding: 3rem;
+            border-radius: 10px;
+            border: 2px solid rgba(0, 255, 65, 0.2);
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.1);
+        }
+
+        .blog-intro {
+            font-size: 1.15rem;
+            color: var(--text-dark);
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(0, 255, 65, 0.05);
+            border-left: 4px solid var(--primary-color);
+            border-radius: 5px;
+        }
+
+        .blog-content h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .blog-content h3 {
+            color: var(--secondary-color);
+            font-size: 1.3rem;
+            margin-top: 2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .blog-content p {
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .blog-content ul {
+            color: var(--text-dark);
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-content li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 0.5rem;
+        }
+
+        .blog-content li::marker {
+            color: var(--primary-color);
+        }
+
+        .blog-content a {
+            color: var(--primary-color);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s;
+        }
+
+        .blog-content a:hover {
+            border-bottom-color: var(--primary-color);
+        }
+
+        .info-box {
+            background: rgba(0, 102, 255, 0.1);
+            border-left: 4px solid var(--secondary-color);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 5px;
+        }
+
+        .info-box strong {
+            color: var(--secondary-color);
+        }
+
+        .warning-box {
+            background: rgba(255, 165, 0, 0.1);
+            border-left: 4px solid #ffa500;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 5px;
+        }
+
+        .warning-box strong {
+            color: #ffa500;
+        }
+
+        .tip-box {
+            background: rgba(0, 255, 65, 0.05);
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 5px;
+        }
+
+        .tip-box strong {
+            color: var(--primary-color);
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: rgba(0, 255, 65, 0.03);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .spec-table th,
+        .spec-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+        }
+
+        .spec-table th {
+            background: rgba(0, 255, 65, 0.1);
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .spec-table td {
+            color: var(--text-dark);
+        }
+
+        .spec-table tr:last-child td {
+            border-bottom: none;
+        }
+
+
+
+        .back-link {
+            display: inline-flex !important;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            margin-top: 3rem;
+            padding: 0.8rem 1.5rem;
+            border: 2px solid var(--primary-color) !important;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            background: var(--primary-color);
+            color: var(--bg-dark);
+            transform: translateX(-5px);
+        }
+
+        .footer {
+            background: var(--bg-card);
+            padding: 2rem;
+            text-align: center;
+            border-top: 2px solid var(--primary-color);
+            margin-top: 4rem;
+        }
+
+        .footer p {
+            color: var(--text-dark);
+        }
+
+        @media (max-width: 768px) {
+            .blog-title {
+                font-size: 1.8rem;
+            }
+
+            .blog-content {
+                padding: 1.5rem;
+            }
+
+            .blog-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .spec-table {
+                font-size: 0.9rem;
+            }
+
+            .spec-table th,
+            .spec-table td {
+                padding: 0.75rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation (root level) -->
+    <div class="pcb-background"></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-microchip"></i>
+                Thakur Paudel
+            </a>
+            <ul class="nav-menu">
+                <li><a href="../index.html#home" class="nav-link">Home</a></li>
+                <li><a href="../index.html#projects" class="nav-link">Projects</a></li>
+                <li><a href="../index.html#blogs" class="nav-link active">Blogs</a></li>
+                <li><a href="../index.html#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="blog-container">
+        <header class="blog-header">
+            <h1 class="blog-title">Understanding I2C and SPI Communication Protocols</h1>
+            <div class="blog-meta">
+                <span class="meta-item">
+                    <i class="far fa-calendar"></i>
+                    November 2025
+                </span>
+                <span class="meta-item">
+                    <i class="fas fa-tag"></i>
+                    Hardware Design
+                </span>
+                <span class="meta-item">
+                    <i class="far fa-clock"></i>
+                    12 min read
+                </span>
+            </div>
+        </header>
+
+        <!-- <main class="blog-container"> -->
+
+        <!-- <section class="blog-header">
+                <h1>Understanding I2C and SPI Communication Protocols</h1>
+                <p class="subtitle">
+                    A practical guide for embedded engineers — choosing the right protocol for reliability, performance,
+                    and
+                    real-world applications.
+                </p>
+            </section> -->
+
+        <section class="blog-content">
+
+            <!-- SECTION 1 -->
+            <h2>📘 Introduction</h2>
+            <p>
+                I2C and SPI are the two most widely used communication protocols in modern embedded systems.
+                Whether you're designing a sensor module, interfacing with memory, or communicating with a display,
+                understanding these protocols is essential for building reliable and efficient embedded
+                applications.
+            </p>
+
+            <!-- SECTION 2 -->
+            <h2>🔌 What is I2C?</h2>
+            <p>
+                I2C (Inter-Integrated Circuit) is a 2-wire communication protocol used for low-to-medium speed
+                devices.
+                It is extremely popular in embedded systems because multiple devices can share the same two lines:
+                <strong>SDA</strong> (data) and <strong>SCL</strong> (clock).
+            </p>
+
+            <h3>✔ I2C Key Features</h3>
+            <ul>
+                <li>Two wires only</li>
+                <li>Multi-master and multi-slave support</li>
+                <li>Each device has a unique address</li>
+                <li>Ideal for sensors and low-speed components</li>
+            </ul>
+
+            <!-- SECTION 3 -->
+            <h2>⚡ What is SPI?</h2>
+            <p>
+                SPI (Serial Peripheral Interface) is a high-speed 4-wire protocol used when
+                speed, reliability, and continuous data flow are required. It uses:
+            </p>
+
+            <ul>
+                <li>MOSI — Master Out Slave In</li>
+                <li>MISO — Master In Slave Out</li>
+                <li>SCK — Clock</li>
+                <li>CS — Chip Select</li>
+            </ul>
+
+            <p>
+                SPI is commonly used in displays, flash memory, SD cards, high-speed ADCs, and communication
+                modules.
+            </p>
+
+            <!-- SECTION 4 -->
+            <h2>⚔️ I2C vs SPI — Technical Comparison</h2>
+            <table class="comparison-table">
+                <tr>
+                    <th>Feature</th>
+                    <th>I2C</th>
+                    <th>SPI</th>
+                </tr>
+                <tr>
+                    <td>Wires</td>
+                    <td>2 wires</td>
+                    <td>4+ wires</td>
+                </tr>
+                <tr>
+                    <td>Speed</td>
+                    <td>Up to 3.4 MHz</td>
+                    <td>10–80 MHz+</td>
+                </tr>
+                <tr>
+                    <td>Full-Duplex</td>
+                    <td>No</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>Multi-Device</td>
+                    <td>Excellent</td>
+                    <td>Requires separate CS pin</td>
+                </tr>
+                <tr>
+                    <td>Reliability</td>
+                    <td>Good for short distances</td>
+                    <td>Very high at high speed</td>
+                </tr>
+            </table>
+
+            <!-- SECTION 5 -->
+            <h2>🛠 Which One Is More Reliable?</h2>
+            <p>
+                In embedded systems, <strong>reliability depends on noise tolerance, speed, and wiring.</strong>
+            </p>
+
+            <h3>✔ I2C Reliability</h3>
+            <ul>
+                <li>Good for short distances (few centimeters)</li>
+                <li>Pull-up resistors required → sensitive to noise</li>
+                <li>Best for sensors and slow peripherals</li>
+            </ul>
+
+            <h3>✔ SPI Reliability</h3>
+            <ul>
+                <li>Much more noise tolerant</li>
+                <li>Works at very high clock speeds</li>
+                <li>Best for real-time, high-bandwidth applications</li>
+            </ul>
+
+            <p><strong>Overall, SPI is considered more reliable for performance-critical systems.</strong></p>
+
+            <!-- SECTION 6 -->
+            <h2>🚀 What Do Modern Embedded Systems Use?</h2>
+            <p>
+                Modern embedded platforms such as STM32, ESP32, Raspberry Pi, and automotive ECUs widely use:
+            </p>
+
+            <ul>
+                <li><strong>I2C</strong> — sensors, system monitoring, configuration chips</li>
+                <li><strong>SPI</strong> — displays, memory, radios, high-speed converters</li>
+            </ul>
+
+            <p>
+                In real products, both protocols are used together.
+                Example: an IoT device uses I2C for sensors and SPI for display + flash.
+            </p>
+
+            <!-- SECTION 7 -->
+            <h2>📚 How to Start Learning I2C and SPI</h2>
+            <h3>Best Practical Resources:</h3>
+            <ul>
+                <li><a href="https://docs.espressif.com" target="_blank">ESP-IDF Documentation</a></li>
+                <li><a href="https://www.st.com/en/microcontrollers-microprocessors/stm32cube-mcu-packages.html"
+                        target="_blank">STM32 HAL / LL Guides</a></li>
+                <li><a href="https://www.arduino.cc/en/Tutorial/HomePage" target="_blank">Arduino Tutorial Pages</a>
+                </li>
+                <li><a href="https://www.youtube.com/@Phil'sLab" target="_blank">Phil’s Lab (High-quality Embedded
+                        Videos)</a></li>
+            </ul>
+
+            <h3>Recommended First Projects:</h3>
+            <ul>
+                <li>Read temperature using I2C (BMP280 / LM75)</li>
+                <li>Interface SPI Flash (W25Q32) on STM32 or ESP32</li>
+                <li>Display text on SPI-based TFT display</li>
+            </ul>
+
+            <!-- SECTION 8 -->
+            <h2>🛡 Best Debugging Practices</h2>
+            <p>
+                Debugging communication issues is a major skill in embedded development.
+                Follow these best practices:
+            </p>
+
+            <ul>
+                <li>Use a logic analyzer (Saleae, cheap FX2 clones)</li>
+                <li>Check pull-up resistor values for I2C</li>
+                <li>Verify clock polarity (CPOL) and phase (CPHA) for SPI</li>
+                <li>Check cable length and signal integrity</li>
+                <li>Validate timing using an oscilloscope</li>
+                <li>Always test one device at a time</li>
+            </ul>
+
+            <p>
+                Proper debugging ensures stable communication and prevents random field failures.
+            </p>
+
+            <!-- SECTION 9 -->
+            <h2>✔ Conclusion</h2>
+            <p>
+                Both I2C and SPI are essential in embedded systems, each serving different purposes.
+                Use I2C for simple, low-speed sensors and configuration devices.
+                Use SPI when you need speed, reliability, and high data throughput.
+            </p>
+
+            <!-- Back Button -->
+            <a href="../blogs.html" class="back-link">⬅ Back to Blogs</a>
+
+        </section>
+
+        </main>
+
+</body>
+
+</html>
