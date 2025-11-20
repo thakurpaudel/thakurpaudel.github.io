@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started with ESP32 Using ESP-IDF | Thakur Paudel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --primary-color: #00ff41;
+            --secondary-color: #0066ff;
+            --bg-dark: #0a0e1a;
+            --bg-card: #1a1f35;
+            --text-light: #e0e0e0;
+            --text-dark: #a0a0a0;
+            --trace-color: rgba(0, 255, 65, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .pcb-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+                linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 31, 53, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 2px solid var(--primary-color);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.3s;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .blog-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .blog-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid rgba(0, 255, 65, 0.2);
+        }
+
+        .blog-title {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .meta-item i {
+            color: var(--primary-color);
+        }
+
+        .blog-content {
+            background: var(--bg-card);
+            padding: 3rem;
+            border-radius: 10px;
+            border: 2px solid rgba(0, 255, 65, 0.2);
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.1);
+        }
+
+        .blog-intro {
+            font-size: 1.15rem;
+            color: var(--text-dark);
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(0, 255, 65, 0.05);
+            border-left: 4px solid var(--primary-color);
+            border-radius: 5px;
+        }
+
+        .blog-content h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .blog-content h3 {
+            color: var(--secondary-color);
+            font-size: 1.3rem;
+            margin-top: 2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .blog-content p {
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .blog-content ul {
+            color: var(--text-dark);
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-content li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 0.5rem;
+        }
+
+        .blog-content li::marker {
+            color: var(--primary-color);
+        }
+
+        .code-block {
+            background: #0d1117;
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-block::before {
+            content: attr(data-lang);
+            position: absolute;
+            top: 0.5rem;
+            right: 1rem;
+            font-size: 0.75rem;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .code-block pre {
+            margin: 0;
+            color: #c9d1d9;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .code-block code {
+            color: var(--primary-color);
+        }
+
+        .info-box {
+            background: rgba(0, 102, 255, 0.1);
+            border-left: 4px solid var(--secondary-color);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 5px;
+        }
+
+        .info-box strong {
+            color: var(--secondary-color);
+        }
+
+        .command-list {
+            background: rgba(0, 255, 65, 0.05);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            margin: 1.5rem 0;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            margin-top: 3rem;
+            padding: 0.8rem 1.5rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            background: var(--primary-color);
+            color: var(--bg-dark);
+            transform: translateX(-5px);
+        }
+
+        .footer {
+            background: var(--bg-card);
+            padding: 2rem;
+            text-align: center;
+            border-top: 2px solid var(--primary-color);
+            margin-top: 4rem;
+        }
+
+        .footer p {
+            color: var(--text-dark);
+        }
+
+        @media (max-width: 768px) {
+            .blog-title {
+                font-size: 1.8rem;
+            }
+
+            .blog-content {
+                padding: 1.5rem;
+            }
+
+            .blog-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .code-block {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="pcb-background"></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-microchip"></i>
+                Thakur Paudel
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html#home" class="nav-link">Home</a></li>
+                <li><a href="index.html#projects" class="nav-link">Projects</a></li>
+                <li><a href="index.html#blogs" class="nav-link active">Blogs</a></li>
+                <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="blog-container">
+        <header class="blog-header">
+            <h1 class="blog-title">Getting Started with ESP32 Using ESP-IDF</h1>
+            <div class="blog-meta">
+                <span class="meta-item">
+                    <i class="far fa-calendar"></i>
+                    November 2024
+                </span>
+                <span class="meta-item">
+                    <i class="fas fa-tag"></i>
+                    Embedded Systems
+                </span>
+                <span class="meta-item">
+                    <i class="far fa-clock"></i>
+                    8 min read
+                </span>
+            </div>
+        </header>
+
+        <article class="blog-content">
+            <div class="blog-intro">
+                ESP32 is one of the most powerful microcontrollers for IoT and embedded development. While most
+                beginners use the Arduino framework, professionals and companies use ESP-IDF — the official development
+                framework from Espressif.
+            </div>
+
+            <h2><i class="fas fa-question-circle"></i> Why ESP-IDF?</h2>
+            <ul>
+                <li>Official SDK used by Espressif themselves</li>
+                <li>RTOS-based (FreeRTOS built-in)</li>
+                <li>Low-level hardware control</li>
+                <li>Professional-grade features: WiFi, BLE, OTA, ESP-NOW, Drivers, NVS, Tasks</li>
+            </ul>
+
+            <h2><i class="fas fa-download"></i> 1. Installing ESP-IDF</h2>
+            <p>The installation process differs slightly for Windows, macOS, and Linux. Below are the correct steps for
+                each.</p>
+
+            <h3>Windows Installation</h3>
+            <p>Windows users should install ESP-IDF using the ESP-IDF Installer:</p>
+            <div class="info-box">
+                <strong>Download:</strong> https://dl.espressif.com/dl/esp-idf/
+                <ul style="margin-top: 0.5rem;">
+                    <li>Installs ESP-IDF, Python, Git, Tools</li>
+                    <li>Sets all environment variables automatically</li>
+                </ul>
+            </div>
+
+            <h3>macOS Installation</h3>
+            <p>Through Homebrew:</p>
+            <div class="code-block" data-lang="bash">
+                <pre>brew install cmake ninja dfu-util ccache python@3 git
+python3 -m pip install --upgrade pip</pre>
+            </div>
+
+            <p>Clone ESP-IDF:</p>
+            <div class="code-block" data-lang="bash">
+                <pre>git clone --recursive https://github.com/espressif/esp-idf.git
+cd esp-idf
+./install.sh</pre>
+            </div>
+
+            <h3>Linux (Ubuntu/Debian)</h3>
+            <div class="code-block" data-lang="bash">
+                <pre>sudo apt-get update
+sudo apt-get install git wget flex bison gperf python3 python3-pip cmake ninja-build ccache</pre>
+            </div>
+
+            <p>Clone and install:</p>
+            <div class="code-block" data-lang="bash">
+                <pre>git clone --recursive https://github.com/espressif/esp-idf.git
+cd esp-idf
+./install.sh</pre>
+            </div>
+
+            <h2><i class="fas fa-cog"></i> 2. Setting Up the Environment</h2>
+            <p>Before using ESP-IDF, activate the environment:</p>
+
+            <h3>Windows</h3>
+            <p>Use the provided ESP-IDF PowerShell shortcut.</p>
+
+            <h3>macOS / Linux</h3>
+            <div class="code-block" data-lang="bash">
+                <pre>. $HOME/esp/esp-idf/export.sh</pre>
+            </div>
+
+            <h2><i class="fas fa-code"></i> 3. Creating Your First ESP-IDF Project</h2>
+
+            <h3>Step 1 — Create a New Project</h3>
+            <div class="code-block" data-lang="bash">
+                <pre>cd ~/esp
+idf.py create-project hello_world
+cd hello_world</pre>
+            </div>
+
+            <h3>Step 2 — Build the Project</h3>
+            <div class="code-block" data-lang="bash">
+                <pre>idf.py build</pre>
+            </div>
+
+            <h3>Step 3 — Flash to ESP32</h3>
+            <div class="code-block" data-lang="bash">
+                <pre>idf.py -p /dev/ttyUSB0 flash</pre>
+            </div>
+            <p><em>Windows example: COM3</em></p>
+
+            <h3>Step 4 — Monitor Output</h3>
+            <div class="code-block" data-lang="bash">
+                <pre>idf.py monitor</pre>
+            </div>
+
+            <h2><i class="fas fa-laptop-code"></i> 4. Recommended Tools (VS Code)</h2>
+            <p>Installing the official ESP-IDF extension makes development easier.</p>
+            <p><strong>Benefits:</strong></p>
+            <ul>
+                <li>GUI menuconfig</li>
+                <li>Device selection</li>
+                <li>Integrated flashing & monitoring</li>
+                <li>Project templates</li>
+            </ul>
+
+            <h2><i class="fas fa-folder-tree"></i> 5. ESP-IDF Project Structure Explained</h2>
+            <ul>
+                <li><strong>main/</strong> → your code</li>
+                <li><strong>CMakeLists.txt</strong> → project configuration</li>
+                <li><strong>sdkconfig</strong> → all ESP32 feature settings</li>
+            </ul>
+
+            <h2><i class="fas fa-file-code"></i> 6. Your First ESP-IDF Application</h2>
+            <p>Inside main/main.c:</p>
+            <div class="code-block" data-lang="c">
+                <pre>#include &lt;stdio.h&gt;
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "esp_system.h"
+#include "esp_log.h"
+
+void app_main(void)
+{
+    while (1) {
+        ESP_LOGI("MAIN", "Hello from ESP32!");
+        vTaskDelay(pdMS_TO_TICKS(1000));
+    }
+}</pre>
+            </div>
+
+            <h2><i class="fas fa-terminal"></i> 7. Useful ESP-IDF Commands</h2>
+            <div class="command-list">
+                <div class="code-block" data-lang="commands">
+                    <pre>idf.py build        # Build
+idf.py flash        # Flash
+idf.py monitor      # Serial output
+idf.py menuconfig   # Configure project
+idf.py clean        # Clean build</pre>
+                </div>
+            </div>
+
+            <h2><i class="fas fa-wrench"></i> 8. Troubleshooting</h2>
+            <ul>
+                <li><strong>Permission issues (Linux/macOS):</strong> sudo usermod -a -G dialout $USER</li>
+                <li><strong>Port not found:</strong> check cable or driver (CP2102/CH340).</li>
+                <li><strong>Build errors:</strong> run <code>git submodule update --init --recursive</code></li>
+            </ul>
+
+            <h2><i class="fas fa-book"></i> 9. Official Documentation</h2>
+            <ul>
+                <li>ESP-IDF Docs — https://docs.espressif.com/</li>
+                <li>ESP32 Hardware Design Guide</li>
+                <li>Espressif GitHub — https://github.com/espressif/esp-idf</li>
+            </ul>
+
+            <a href="blogs.html" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Back to Blogs
+            </a>
+        </article>
+    </div>
+
+    <footer class="footer">
+        <p>© 2025 Embedded Systems Engineer. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>
