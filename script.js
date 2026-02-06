@@ -114,4 +114,72 @@ document.addEventListener('DOMContentLoaded', function () {
 
     window.addEventListener('scroll', animateOnScroll);
     animateOnScroll();
+
+    // Request Code Modal Logic
+    const modal = document.getElementById('requestModal');
+    const closeBtn = document.querySelector('.close-modal');
+    const requestBtns = document.querySelectorAll('.request-code-btn');
+    const modalSubject = document.getElementById('modalSubject');
+    const modalForm = document.getElementById('requestCodeForm');
+    const modalSuccess = document.getElementById('modalSuccess');
+
+    if (modal) {
+        // Open Modal
+        requestBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const project = btn.getAttribute('data-project');
+                if (project) {
+                    // Reset form state first
+                    modalForm.reset();
+                    modalForm.style.display = 'block';
+                    modalSuccess.style.display = 'none';
+
+                    // Set subject after reset
+                    modalSubject.value = `Code Request: ${project}`;
+                    modal.style.display = "block";
+                }
+            });
+        });
+
+        // Close Modal
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = "none";
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target == modal) {
+                modal.style.display = "none";
+            }
+        });
+
+        // Handle Modal Form Submission
+        modalForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const submitBtn = modalForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitBtn.disabled = true;
+
+            try {
+                const response = await fetch(modalForm.action, {
+                    method: "POST",
+                    body: new FormData(modalForm),
+                    headers: { "Accept": "application/json" }
+                });
+
+                if (response.ok) {
+                    modalForm.style.display = 'none';
+                    modalSuccess.style.display = 'block';
+                } else {
+                    alert("Oops! Something went wrong. Please try again.");
+                }
+            } catch (error) {
+                alert("Network error. Please check your connection.");
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+    }
 });
