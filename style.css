@@ -457,9 +457,15 @@ body {
 }
 
 .project-card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-10px) scale(1.02);
     border-color: var(--primary-color);
-    box-shadow: 0 10px 30px rgba(0, 255, 65, 0.3);
+    box-shadow: 0 0 30px rgba(0, 255, 65, 0.4), inset 0 0 20px rgba(0, 255, 65, 0.05);
+    z-index: 10;
+}
+
+.project-card:hover .project-icon {
+    animation: pulse 1s infinite;
+    text-shadow: 0 0 10px var(--primary-color);
 }
 
 .pcb-border {
@@ -525,12 +531,20 @@ body {
 }
 
 .tech-tag {
-    background: rgba(0, 255, 65, 0.1);
+    background: rgba(0, 255, 65, 0.05);
     color: var(--primary-color);
     padding: 0.3rem 0.8rem;
     border-radius: 15px;
-    font-size: 0.9rem;
-    border: 1px solid var(--primary-color);
+    font-size: 0.85rem;
+    border: 1px solid rgba(0, 255, 65, 0.3);
+    transition: all 0.3s;
+}
+
+.tech-tag:hover {
+    background: var(--primary-color);
+    color: var(--bg-dark);
+    box-shadow: 0 0 10px var(--primary-color);
+    transform: translateY(-2px);
 }
 
 .project-links {
