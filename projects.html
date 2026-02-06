@@ -270,9 +270,14 @@
                 <div class="form-group">
                     <textarea name="message" placeholder="Why do you need this code?" rows="4" required></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-paper-plane"></i> Send Request
-                </button>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary cancel-btn">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i> Send Request
+                    </button>
+                </div>
             </form>
             <div id="modalSuccess" style="display: none; text-align: center; color: var(--primary-color);">
                 <i class="fas fa-check-circle" style="font-size: 3rem; margin-bottom: 1rem;"></i>

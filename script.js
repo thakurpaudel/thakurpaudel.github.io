@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     // Set subject after reset
                     modalSubject.value = `Code Request: ${project}`;
-                    modal.style.display = "block";
+                    modal.style.display = "flex";
                 }
             });
         });
@@ -146,6 +146,14 @@ document.addEventListener('DOMContentLoaded', function () {
         closeBtn.addEventListener('click', () => {
             modal.style.display = "none";
         });
+
+        // Cancel Button
+        const cancelBtn = document.querySelector('.cancel-btn');
+        if (cancelBtn) {
+            cancelBtn.addEventListener('click', () => {
+                modal.style.display = "none";
+            });
+        }
 
         window.addEventListener('click', (e) => {
             if (e.target == modal) {
