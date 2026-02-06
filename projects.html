@@ -13,6 +13,42 @@
 <body>
     <div class="pcb-background"></div>
 
+    <!-- Request Code Modal (Moved to top for positioning safety) -->
+    <div id="requestModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Request Source Code</h2>
+            <p>Please fill out the form below to request access to this project's source code.</p>
+            <form id="requestCodeForm" action="https://formspree.io/f/xnnwpeog" method="POST">
+                <div class="form-group">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="modalSubject" name="subject" placeholder="Subject" readonly required>
+                </div>
+                <div class="form-group">
+                    <textarea name="message" placeholder="Why do you need this code?" rows="4" required></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary cancel-btn">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i> Send Request
+                    </button>
+                </div>
+            </form>
+            <div id="modalSuccess" style="display: none; text-align: center; color: var(--primary-color);">
+                <i class="fas fa-check-circle" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                <h3>Request Sent!</h3>
+                <p>I'll get back to you shortly.</p>
+            </div>
+        </div>
+    </div>
+
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
@@ -251,41 +287,6 @@
         </div>
     </footer>
 
-    <!-- Request Code Modal -->
-    <div id="requestModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2>Request Source Code</h2>
-            <p>Please fill out the form below to request access to this project's source code.</p>
-            <form id="requestCodeForm" action="https://formspree.io/f/xnnwpeog" method="POST">
-                <div class="form-group">
-                    <input type="text" name="name" placeholder="Your Name" required>
-                </div>
-                <div class="form-group">
-                    <input type="email" name="email" placeholder="Your Email" required>
-                </div>
-                <div class="form-group">
-                    <input type="text" id="modalSubject" name="subject" placeholder="Subject" readonly required>
-                </div>
-                <div class="form-group">
-                    <textarea name="message" placeholder="Why do you need this code?" rows="4" required></textarea>
-                </div>
-                <div class="form-actions">
-                    <button type="button" class="btn btn-secondary cancel-btn">
-                        <i class="fas fa-times"></i> Cancel
-                    </button>
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-paper-plane"></i> Send Request
-                    </button>
-                </div>
-            </form>
-            <div id="modalSuccess" style="display: none; text-align: center; color: var(--primary-color);">
-                <i class="fas fa-check-circle" style="font-size: 3rem; margin-bottom: 1rem;"></i>
-                <h3>Request Sent!</h3>
-                <p>I'll get back to you shortly.</p>
-            </div>
-        </div>
-    </div>
 
     <script src="script.js"></script>
 </body>
