@@ -134,8 +134,9 @@
                         <span class="tech-tag">PCB Design</span>
                     </div>
                     <div class="project-links">
-                        <a href="mailto:thakurpaudel347@gmail.com?subject=Code Request: IoT Temperature Monitoring System"
-                            class="project-link"><i class="fas fa-envelope"></i> Request Code</a>
+                        <a href="#" class="project-link request-code-btn"
+                            data-project="IoT Temperature Monitoring System"><i class="fas fa-envelope"></i> Request
+                            Code</a>
                         <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Demo</a>
                     </div>
                 </div>
@@ -182,8 +183,8 @@
                         <span class="tech-tag">PID Control</span>
                     </div>
                     <div class="project-links">
-                        <a href="mailto:thakurpaudel347@gmail.com?subject=Code Request: Autonomous Robot Controller"
-                            class="project-link"><i class="fas fa-envelope"></i> Request Code</a>
+                        <a href="#" class="project-link request-code-btn" data-project="Autonomous Robot Controller"><i
+                                class="fas fa-envelope"></i> Request Code</a>
                         <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Demo</a>
                     </div>
                 </div>
@@ -205,8 +206,8 @@
                         <span class="tech-tag">SMD</span>
                     </div>
                     <div class="project-links">
-                        <a href="mailto:thakurpaudel347@gmail.com?subject=Code Request: Power Management Module"
-                            class="project-link"><i class="fas fa-envelope"></i> Request Code</a>
+                        <a href="#" class="project-link request-code-btn" data-project="Power Management Module"><i
+                                class="fas fa-envelope"></i> Request Code</a>
                         <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Demo</a>
                     </div>
                 </div>
@@ -228,8 +229,8 @@
                         <span class="tech-tag">Low Power</span>
                     </div>
                     <div class="project-links">
-                        <a href="mailto:thakurpaudel347@gmail.com?subject=Code Request: Wireless Sensor Network"
-                            class="project-link"><i class="fas fa-envelope"></i> Request Code</a>
+                        <a href="#" class="project-link request-code-btn" data-project="Wireless Sensor Network"><i
+                                class="fas fa-envelope"></i> Request Code</a>
                         <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Demo</a>
                     </div>
                 </div>
@@ -248,6 +249,37 @@
             </div>
         </div>
     </footer>
+
+    <!-- Request Code Modal -->
+    <div id="requestModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Request Source Code</h2>
+            <p>Please fill out the form below to request access to this project's source code.</p>
+            <form id="requestCodeForm" action="https://formspree.io/f/xnnwpeog" method="POST">
+                <div class="form-group">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="modalSubject" name="subject" placeholder="Subject" readonly required>
+                </div>
+                <div class="form-group">
+                    <textarea name="message" placeholder="Why do you need this code?" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i> Send Request
+                </button>
+            </form>
+            <div id="modalSuccess" style="display: none; text-align: center; color: var(--primary-color);">
+                <i class="fas fa-check-circle" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                <h3>Request Sent!</h3>
+                <p>I'll get back to you shortly.</p>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
