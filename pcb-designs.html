@@ -50,6 +50,99 @@
         </div>
     </div>
 
+    <!-- PCB Detail Modal -->
+    <div id="pcbDetailModal" class="modal pcb-detail-modal">
+        <div class="pcb-modal-content">
+            <span class="close-modal pcb-close">&times;</span>
+
+            <!-- Modal Header -->
+            <div class="pcb-modal-header">
+                <h2 id="pcbModalTitle">PCB Board Name</h2>
+                <p id="pcbModalSubtitle" class="pcb-modal-subtitle">Brief description</p>
+            </div>
+
+            <!-- Image Gallery -->
+            <div class="pcb-gallery">
+                <div class="pcb-gallery-main">
+                    <button class="gallery-nav gallery-prev"><i class="fas fa-chevron-left"></i></button>
+                    <img id="pcbMainImage" src="" alt="PCB Image" class="pcb-main-image">
+                    <button class="gallery-nav gallery-next"><i class="fas fa-chevron-right"></i></button>
+                    <div class="gallery-counter">
+                        <span id="currentImageIndex">1</span> / <span id="totalImages">1</span>
+                    </div>
+                </div>
+                <div class="pcb-gallery-thumbnails" id="pcbThumbnails">
+                    <!-- Thumbnails will be dynamically added here -->
+                </div>
+            </div>
+
+            <!-- Tabbed Content -->
+            <div class="pcb-modal-tabs">
+                <button class="pcb-tab-btn active" data-tab="overview">
+                    <i class="fas fa-info-circle"></i> Overview
+                </button>
+                <button class="pcb-tab-btn" data-tab="specifications">
+                    <i class="fas fa-cog"></i> Specifications
+                </button>
+                <button class="pcb-tab-btn" data-tab="applications">
+                    <i class="fas fa-lightbulb"></i> Applications
+                </button>
+                <button class="pcb-tab-btn" data-tab="files">
+                    <i class="fas fa-folder"></i> Files
+                </button>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="pcb-modal-body">
+                <!-- Overview Tab -->
+                <div class="pcb-tab-content active" id="tab-overview">
+                    <h3><i class="fas fa-file-alt"></i> Description</h3>
+                    <p id="pcbDescription">Detailed description will appear here...</p>
+
+                    <h3><i class="fas fa-list-check"></i> Key Features</h3>
+                    <ul id="pcbFeatures" class="pcb-features-list">
+                        <!-- Features will be dynamically added -->
+                    </ul>
+                </div>
+
+                <!-- Specifications Tab -->
+                <div class="pcb-tab-content" id="tab-specifications">
+                    <h3><i class="fas fa-microchip"></i> Technical Specifications</h3>
+                    <div class="specs-grid" id="pcbSpecsGrid">
+                        <!-- Specs will be dynamically added -->
+                    </div>
+                </div>
+
+                <!-- Applications Tab -->
+                <div class="pcb-tab-content" id="tab-applications">
+                    <h3><i class="fas fa-rocket"></i> Use Cases & Applications</h3>
+                    <div id="pcbApplications">
+                        <!-- Applications will be dynamically added -->
+                    </div>
+                </div>
+
+                <!-- Files Tab -->
+                <div class="pcb-tab-content" id="tab-files">
+                    <h3><i class="fas fa-download"></i> Design Files & Documentation</h3>
+                    <div class="pcb-files-list" id="pcbFiles">
+                        <!-- Files will be dynamically added -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="pcb-modal-footer">
+                <button class="btn btn-secondary"
+                    onclick="document.getElementById('pcbDetailModal').style.display='none'">
+                    <i class="fas fa-times"></i> Close
+                </button>
+                <button class="btn btn-primary request-code-btn" id="pcbRequestBtn">
+                    <i class="fas fa-envelope"></i> Request Details
+                </button>
+            </div>
+        </div>
+    </div>
+
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
@@ -81,7 +174,7 @@
 
             <div class="pcb-grid">
                 <!-- PCB Design Template 1 -->
-                <div class="pcb-card">
+                <div class="pcb-card pcb-clickable" data-pcb-id="pcb-1">
                     <div class="pcb-image-container">
                         <!-- Replace this with your actual PCB image -->
                         <img src="Images/pcb-placeholder-1.jpg" alt="PCB Board Design" class="pcb-image">
@@ -122,7 +215,7 @@
                 </div>
 
                 <!-- PCB Design Template 2 -->
-                <div class="pcb-card">
+                <div class="pcb-card pcb-clickable" data-pcb-id="pcb-2">
                     <div class="pcb-image-container">
                         <!-- Replace this with your actual PCB image -->
                         <img src="Images/pcb-placeholder-2.jpg" alt="PCB Board Design" class="pcb-image">
@@ -162,7 +255,7 @@
                 </div>
 
                 <!-- PCB Design Template 3 -->
-                <div class="pcb-card">
+                <div class="pcb-card pcb-clickable" data-pcb-id="pcb-3">
                     <div class="pcb-image-container">
                         <!-- Replace this with your actual PCB image -->
                         <img src="Images/pcb-placeholder-3.jpg" alt="PCB Board Design" class="pcb-image">
