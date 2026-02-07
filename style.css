@@ -1149,3 +1149,226 @@ body {
     }
 
 }
+
+/* ===================================
+   PCB & Hardware Designs Section
+   =================================== */
+
+#pcb-designs {
+    background: linear-gradient(135deg, var(--bg-primary) 0%, #0a0e1a 100%);
+    padding: 5rem 0;
+}
+
+#pcb-designs .section-subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+}
+
+.pcb-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2.5rem;
+    margin-top: 3rem;
+}
+
+.pcb-card {
+    background: var(--bg-card);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 255, 65, 0.2);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+}
+
+.pcb-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+}
+
+.pcb-card:hover::before {
+    transform: scaleX(1);
+}
+
+.pcb-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--primary-color);
+    box-shadow: 0 20px 40px rgba(0, 255, 65, 0.2);
+}
+
+.pcb-image-container {
+    position: relative;
+    width: 100%;
+    height: 280px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #1a1f35 0%, #0f1420 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pcb-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.pcb-card:hover .pcb-image {
+    transform: scale(1.1);
+}
+
+.pcb-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.pcb-overlay i {
+    font-size: 3rem;
+    color: var(--primary-color);
+}
+
+.pcb-card:hover .pcb-overlay {
+    opacity: 1;
+}
+
+.pcb-content {
+    padding: 2rem;
+}
+
+.pcb-title {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.pcb-description {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.pcb-specs,
+.pcb-usage {
+    margin-top: 1.5rem;
+    padding: 1.25rem;
+    background: rgba(0, 255, 65, 0.05);
+    border-left: 3px solid var(--primary-color);
+    border-radius: 8px;
+}
+
+.pcb-specs h4,
+.pcb-usage h4 {
+    font-size: 1rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.specs-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.specs-list li {
+    color: var(--text-secondary);
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.9rem;
+}
+
+.specs-list li:last-child {
+    border-bottom: none;
+}
+
+.specs-list strong {
+    color: var(--text-primary);
+    margin-right: 0.5rem;
+}
+
+.pcb-usage p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.pcb-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.pcb-link {
+    flex: 1;
+    min-width: 140px;
+    padding: 0.85rem 1.25rem;
+    background: rgba(0, 255, 65, 0.1);
+    color: var(--primary-color);
+    text-decoration: none;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 255, 65, 0.3);
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.pcb-link:hover {
+    background: var(--primary-color);
+    color: var(--bg-primary);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 255, 65, 0.3);
+}
+
+/* Responsive Design for PCB Section */
+@media (max-width: 768px) {
+    .pcb-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .pcb-image-container {
+        height: 220px;
+    }
+
+    .pcb-content {
+        padding: 1.5rem;
+    }
+
+    .pcb-links {
+        flex-direction: column;
+    }
+
+    .pcb-link {
+        width: 100%;
+    }
+}
