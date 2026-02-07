@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PCB Designs | Embedded Systems Engineer</title>
+    <link rel="icon" type="image/jpeg" href="Images/thakur.jpeg">
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="pcb-background"></div>
+
+    <!-- Request Code Modal -->
+    <div id="requestModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Request PCB Details</h2>
+            <p>Please fill out the form below to request more information about this PCB design.</p>
+            <form id="requestCodeForm" action="https://formspree.io/f/xnnwpeog" method="POST">
+                <div class="form-group">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="modalSubject" name="subject" placeholder="Subject" readonly required>
+                </div>
+                <div class="form-group">
+                    <textarea name="message" placeholder="What information do you need?" rows="4" required></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary cancel-btn">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i> Send Request
+                    </button>
+                </div>
+            </form>
+            <div id="modalSuccess" style="display: none; text-align: center; color: var(--primary-color);">
+                <i class="fas fa-check-circle" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                <h3>Request Sent!</h3>
+                <p>I'll get back to you shortly.</p>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-microchip"></i>
+                <span>Portfolio</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="projects.html" class="nav-link">Projects</a></li>
+                <li><a href="pcb-designs.html" class="nav-link active">PCB Designs</a></li>
+                <li><a href="blogs.html" class="nav-link">Blogs</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PCB & Hardware Designs Section -->
+    <section id="pcb-designs" class="section">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fas fa-microchip"></i> PCB & Hardware Designs
+            </h2>
+            <p class="section-subtitle">Custom circuit board designs and hardware prototypes</p>
+
+            <div class="pcb-grid">
+                <!-- PCB Design Template 1 -->
+                <div class="pcb-card">
+                    <div class="pcb-image-container">
+                        <!-- Replace this with your actual PCB image -->
+                        <img src="Images/pcb-placeholder-1.jpg" alt="PCB Board Design" class="pcb-image">
+                        <div class="pcb-overlay">
+                            <i class="fas fa-search-plus"></i>
+                        </div>
+                    </div>
+                    <div class="pcb-content">
+                        <h3 class="pcb-title">PCB Board Name</h3>
+                        <p class="pcb-description">
+                            Brief description of your PCB board. Explain what it does, the main components used,
+                            and its primary application or use case.
+                        </p>
+
+                        <div class="pcb-specs">
+                            <h4><i class="fas fa-cog"></i> Technical Specifications</h4>
+                            <ul class="specs-list">
+                                <li><strong>Layers:</strong> 2-Layer / 4-Layer</li>
+                                <li><strong>Size:</strong> 100mm x 80mm</li>
+                                <li><strong>Key Components:</strong> MCU, Sensors, Power IC</li>
+                                <li><strong>Design Tool:</strong> Altium / KiCad / Eagle</li>
+                            </ul>
+                        </div>
+
+                        <div class="pcb-usage">
+                            <h4><i class="fas fa-lightbulb"></i> Use Case</h4>
+                            <p>Describe where and how this board is used. Examples: IoT devices, industrial control,
+                                robotics, power management, etc.</p>
+                        </div>
+
+                        <div class="pcb-links">
+                            <a href="#" class="pcb-link"><i class="fab fa-github"></i> Design Files</a>
+                            <a href="#" class="pcb-link request-code-btn" data-project="PCB Board Name">
+                                <i class="fas fa-envelope"></i> Request Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PCB Design Template 2 -->
+                <div class="pcb-card">
+                    <div class="pcb-image-container">
+                        <!-- Replace this with your actual PCB image -->
+                        <img src="Images/pcb-placeholder-2.jpg" alt="PCB Board Design" class="pcb-image">
+                        <div class="pcb-overlay">
+                            <i class="fas fa-search-plus"></i>
+                        </div>
+                    </div>
+                    <div class="pcb-content">
+                        <h3 class="pcb-title">Another PCB Design</h3>
+                        <p class="pcb-description">
+                            Description of your second PCB board. Highlight unique features, innovations,
+                            or challenges you solved in this design.
+                        </p>
+
+                        <div class="pcb-specs">
+                            <h4><i class="fas fa-cog"></i> Technical Specifications</h4>
+                            <ul class="specs-list">
+                                <li><strong>Layers:</strong> 2-Layer</li>
+                                <li><strong>Size:</strong> 50mm x 50mm</li>
+                                <li><strong>Key Components:</strong> List main ICs</li>
+                                <li><strong>Design Tool:</strong> Your tool</li>
+                            </ul>
+                        </div>
+
+                        <div class="pcb-usage">
+                            <h4><i class="fas fa-lightbulb"></i> Use Case</h4>
+                            <p>Explain the practical application and benefits of this design.</p>
+                        </div>
+
+                        <div class="pcb-links">
+                            <a href="#" class="pcb-link"><i class="fab fa-github"></i> Design Files</a>
+                            <a href="#" class="pcb-link request-code-btn" data-project="Another PCB Design">
+                                <i class="fas fa-envelope"></i> Request Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PCB Design Template 3 -->
+                <div class="pcb-card">
+                    <div class="pcb-image-container">
+                        <!-- Replace this with your actual PCB image -->
+                        <img src="Images/pcb-placeholder-3.jpg" alt="PCB Board Design" class="pcb-image">
+                        <div class="pcb-overlay">
+                            <i class="fas fa-search-plus"></i>
+                        </div>
+                    </div>
+                    <div class="pcb-content">
+                        <h3 class="pcb-title">Third PCB Project</h3>
+                        <p class="pcb-description">
+                            Add as many PCB cards as you need. Each card follows the same template structure
+                            for consistency.
+                        </p>
+
+                        <div class="pcb-specs">
+                            <h4><i class="fas fa-cog"></i> Technical Specifications</h4>
+                            <ul class="specs-list">
+                                <li><strong>Layers:</strong> 4-Layer</li>
+                                <li><strong>Size:</strong> Custom dimensions</li>
+                                <li><strong>Key Components:</strong> Your components</li>
+                                <li><strong>Design Tool:</strong> Your tool</li>
+                            </ul>
+                        </div>
+
+                        <div class="pcb-usage">
+                            <h4><i class="fas fa-lightbulb"></i> Use Case</h4>
+                            <p>Application and use case description goes here.</p>
+                        </div>
+
+                        <div class="pcb-links">
+                            <a href="#" class="pcb-link"><i class="fab fa-github"></i> Design Files</a>
+                            <a href="#" class="pcb-link request-code-btn" data-project="Third PCB Project">
+                                <i class="fas fa-envelope"></i> Request Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 202 Embedded Systems Engineer. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="projects.html">Projects</a>
+                <a href="pcb-designs.html">PCB Designs</a>
+                <a href="blogs.html">Blogs</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
