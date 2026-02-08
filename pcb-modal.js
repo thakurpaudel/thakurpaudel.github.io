@@ -2,72 +2,44 @@
 
 const pcbData = {
     'pcb-1': {
-        name: 'IoT Sensor Board',
-        subtitle: '4-Layer PCB for Environmental Monitoring',
-        githubLink: '', // Empty means not published, add GitHub repo URL when published
+        name: 'Vehicle Control Unit',
+        subtitle: '4-Layer PCB for Electric Vehicle',
+        githubLink: '',
         images: [
-            'Images/pcb-placeholder-1.jpg',
-            'Images/pcb-placeholder-2.jpg',
-            'Images/pcb-placeholder-3.jpg'
+            'Images/P1-VCU-Board.png',
+            'Images/P1-VCU-Back.png',
+            'Images/P1-VCU-3D-View.png',
+            'Images/P1-VCU-PCB-Design.png',
+            'Images/P1-VCU-Schemetic.png',
+            'Images/P1-VCU-Schemetic-Details.png'
         ],
-        description: 'This is a comprehensive IoT sensor board designed for environmental monitoring applications. It features multiple sensor interfaces, low-power operation, and wireless connectivity. The board is optimized for battery-powered deployment in remote locations.',
+        description: 'This is the Vehicle Control Unit (VCU) for the Electric Vehicle. It is a 4-layer PCB designed for motor control applications. It features multiple sensor interfaces, low-power operation, and wireless connectivity. The board is optimized for battery-powered deployment in remote locations.',
         features: [
-            'Ultra-low power consumption (<50µA in sleep mode)',
+            'Vehicle Control',
+            'On Board Fall & Movement Detection',
+            'On Board Back-up Battery Support',
             'Multiple sensor interfaces (I2C, SPI, UART)',
-            'Wireless connectivity (WiFi/BLE)',
+            'CAN Communication',
+            'USB Interface',
+            'Mosfet Driver for the Auxiliary Control',
             'On-board voltage regulation (3.3V and 5V)',
             'Temperature range: -40°C to +85°C',
-            'Compact form factor: 50mm x 50mm'
         ],
         specifications: {
             'PCB Layers': '4-Layer',
             'Board Size': '50mm x 50mm',
-            'MCU': 'ESP32-S3',
-            'Power Supply': '3.3V - 5V DC',
-            'Sensors': 'Temperature, Humidity, Pressure',
-            'Connectivity': 'WiFi 802.11b/g/n, BLE 5.0',
+            'MCU': 'STM32F4',
+            'Power Supply': '12V DC',
             'Design Tool': 'KiCad 7.0',
-            'Manufacturing': 'JLCPCB / PCBWay'
         },
         applications: [
             {
-                title: 'Smart Agriculture',
-                description: 'Monitor soil moisture, temperature, and environmental conditions in agricultural fields for precision farming.'
-            },
-            {
-                title: 'Industrial IoT',
-                description: 'Track environmental parameters in warehouses, factories, and industrial facilities for quality control.'
-            },
-            {
-                title: 'Home Automation',
-                description: 'Integrate with smart home systems to monitor and control indoor climate and air quality.'
+                title: 'Electric Vehicle',
+                description: 'Vehicle Control Unit (VCU) for the Electric Vehicle. It is a 4-layer PCB designed for motor control applications. It features multiple sensor interfaces, low-power operation, and wireless connectivity. The board is optimized for battery-powered deployment in remote locations.'
             }
         ],
         files: [
-            {
-                name: 'Schematic PDF',
-                description: 'Complete circuit schematic',
-                icon: 'fa-file-pdf',
-                link: '#'
-            },
-            {
-                name: 'Gerber Files',
-                description: 'Manufacturing files (ZIP)',
-                icon: 'fa-file-zipper',
-                link: '#'
-            },
-            {
-                name: 'BOM (Bill of Materials)',
-                description: 'Component list (Excel)',
-                icon: 'fa-file-excel',
-                link: '#'
-            },
-            {
-                name: 'KiCad Project',
-                description: 'Source design files',
-                icon: 'fa-folder',
-                link: '#'
-            }
+
         ]
     },
     'pcb-2': {
@@ -120,9 +92,9 @@ const pcbData = {
         ]
     },
     'pcb-3': {
-        name: 'Motor Driver Board',
+        name: 'Display Driver Board ',
         subtitle: '4-Layer High-Current PCB',
-        githubLink: '', // Empty means not published, add GitHub repo URL when published
+        githubLink: '',
         images: [
             'Images/pcb-placeholder-3.jpg'
         ],
