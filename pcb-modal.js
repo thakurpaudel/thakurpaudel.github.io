@@ -1,10 +1,10 @@
 // PCB Detail Modal JavaScript
 
-// Sample PCB Data - Replace with your actual PCB information
 const pcbData = {
     'pcb-1': {
         name: 'IoT Sensor Board',
         subtitle: '4-Layer PCB for Environmental Monitoring',
+        githubLink: '', // Empty means not published, add GitHub repo URL when published
         images: [
             'Images/pcb-placeholder-1.jpg',
             'Images/pcb-placeholder-2.jpg',
@@ -71,59 +71,58 @@ const pcbData = {
         ]
     },
     'pcb-2': {
-        name: 'Power Management Module',
-        subtitle: '2-Layer PCB for Battery Charging',
+        name: 'Communication Board',
+        subtitle: '4-Layer PCB with BLE,LTE/4G,GPS,GNSS,WiFi,NFC',
+        githubLink: '', // Empty means not published, add GitHub repo URL when published
         images: [
-            'Images/pcb-placeholder-2.jpg',
-            'Images/pcb-placeholder-1.jpg'
+            'Images/Comm_3D.png',
+            'Images/Comm_Back.png',
+            'Images/Comm_PCB.png'
         ],
-        description: 'A versatile power management module featuring battery charging, voltage regulation, and power path management. Designed for portable electronics and battery-powered devices.',
+        description: 'A versatile communication module featuring BLE,LTE/4G,GPS,GNSS,WiFi,NFC. Designed for portable electronics and battery-powered devices.',
         features: [
-            'Li-Ion/Li-Po battery charging (1A max)',
-            'USB-C Power Delivery support',
-            'Multiple output voltages (3.3V, 5V)',
-            'Over-current and over-voltage protection',
-            'LED status indicators',
-            'Compact 30mm x 40mm footprint'
+            'BLE 5.0 & 4.1',
+            'LTE/4G',
+            'GPS,GNSS',
+            'WiFi',
+            'NFC',
+            'CAN B2.0',
+            'OTA Update',
+            'Low Power Consumption',
+            'Protocol: HTTP, HTTPS,WebSocket, MQTT, TCPIP, UDP, FTP, SMTP, POP3, IMAP'
         ],
         specifications: {
-            'PCB Layers': '2-Layer',
+            'MCU': 'ESP32-S3',
+            'LTE Module': 'SIM7600E',
+            'CPU': '240MHz Dual Core',
+            'RAM': '512KB + 8MB PSRAM',
+            'Flash': '16MB',
+            'PCB Layers': '4-Layer',
             'Board Size': '30mm x 40mm',
-            'Input Voltage': '5V USB-C',
-            'Output Current': '1A per rail',
-            'Battery Support': 'Single cell Li-Ion/Li-Po',
-            'Charging IC': 'BQ25895',
-            'Design Tool': 'Altium Designer',
-            'Certifications': 'CE, FCC'
+            'Input Voltage': '3.6 to 5V',
+            'Design Tool': 'KiCad & Altium Designer',
         },
         applications: [
             {
-                title: 'Portable Devices',
-                description: 'Power management for handheld electronics, portable sensors, and wearable devices.'
+                title: 'Vehicle Connectivity and Tracking',
+                description: 'Connectivity and tracking system for vehicles. Provide the on-board connectivity for vehicle tracking and monitoring. BLE used for the provide the connectivity with mobile app and Vehilce.'
             },
             {
-                title: 'DIY Projects',
-                description: 'Easy-to-integrate power solution for maker projects and prototypes.'
+                title: 'IOT Devices',
+                description: 'CAN 2.0 used to communicate with other IOT devices and this board provide the remote connectivity using LTE/4G or Wifi and also supprot the on board HTTP, HTTPS,WebSocket, MQTT, TCPIP, UDP'
+            },
+            {
+                title: 'Protable Wifi Device',
+                description: 'This board can be used as the protable Wifi device. It can be convert the LTE/4G to wifi.'
             }
         ],
         files: [
-            {
-                name: 'Schematic PDF',
-                description: 'Circuit design',
-                icon: 'fa-file-pdf',
-                link: '#'
-            },
-            {
-                name: 'Gerber Files',
-                description: 'Manufacturing package',
-                icon: 'fa-file-zipper',
-                link: '#'
-            }
         ]
     },
     'pcb-3': {
         name: 'Motor Driver Board',
         subtitle: '4-Layer High-Current PCB',
+        githubLink: '', // Empty means not published, add GitHub repo URL when published
         images: [
             'Images/pcb-placeholder-3.jpg'
         ],
@@ -380,6 +379,56 @@ document.addEventListener('DOMContentLoaded', function () {
             } else if (e.key === 'ArrowRight') {
                 navigateGallery('next');
             }
+        }
+    });
+
+    // GitHub button handlers
+    document.querySelectorAll('.pcb-github-btn').forEach(btn => {
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const pcbId = this.getAttribute('data-pcb-id');
+            const pcb = pcbData[pcbId];
+
+            if (!pcb) return;
+
+            // Check if GitHub link is available
+            if (pcb.githubLink && pcb.githubLink.trim() !== '') {
+                // Open GitHub link in new tab
+                window.open(pcb.githubLink, '_blank');
+            } else {
+                // Show request form
+                const modal = document.getElementById('requestModal');
+                const subject = document.getElementById('modalSubject');
+                subject.value = `Request Design Files for ${pcb.name}`;
+                modal.style.display = 'flex';
+
+                // Update button text to show "Request Design"
+                this.querySelector('.btn-text').textContent = 'Request Design';
+            }
+        });
+    });
+
+    // Board Details button handlers
+    document.querySelectorAll('.pcb-details-btn').forEach(btn => {
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const pcbId = this.getAttribute('data-pcb-id');
+            openPCBModal(pcbId);
+        });
+    });
+
+    // Update button text on page load based on githubLink availability
+    document.querySelectorAll('.pcb-github-btn').forEach(btn => {
+        const pcbId = btn.getAttribute('data-pcb-id');
+        const pcb = pcbData[pcbId];
+
+        if (pcb && (!pcb.githubLink || pcb.githubLink.trim() === '')) {
+            btn.querySelector('.btn-text').textContent = 'Request Design';
+            btn.querySelector('i').className = 'fas fa-envelope';
         }
     });
 });
