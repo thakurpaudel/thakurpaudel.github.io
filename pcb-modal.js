@@ -147,6 +147,7 @@ const pcbData = {
         githubLink: '',
         images: [
             'Images/Charging-Station-Install.png',
+            'Images/CMS-Board-Install-Review.jpg',
             'Images/CMS-Assembly-Photo.png',
             'Images/CMS-Full-Board-3D.png',
             'Images/CMS-3D-Image.png',
@@ -190,7 +191,8 @@ const pcbData = {
         subtitle: 'Uninterruptible Power Supply Unit',
         githubLink: '',
         images: [
-            'Images/pcb-placeholder-2.jpg'
+            'Images/PMS-Board-Assembly-Front.png',
+            'Images/PMS-Board-Assembly-Back.png',
         ],
         description: 'An advanced Power Management System delivering uninterrupted power. Converts 85V-220V AC to a stable 12V 4A DC output with zero-latency (<10µs) UPS switching via an onboard Li-ion battery backup. Ideal for critical systems requiring high availability.',
         features: [
