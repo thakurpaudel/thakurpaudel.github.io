@@ -48,6 +48,7 @@ const pcbData = {
         subtitle: '4-Layer PCB with BLE,LTE/4G,GPS,GNSS,WiFi,NFC',
         githubLink: '', // Empty means not published, add GitHub repo URL when published
         images: [
+            'Images/Comm-Board-Assembly.png',
             'Images/Comm_3D.png',
             'Images/Comm_Back.png',
             'Images/Comm_PCB.png'
@@ -338,6 +339,44 @@ const pcbData = {
             {
                 title: 'Industrial HMI Gateway',
                 description: 'Serves as an intelligent touch-panel controller with diverse IO and network capabilities.'
+            }
+        ],
+        files: []
+    },
+    'pcb-9': {
+        name: 'Remote Monitoring System',
+        subtitle: 'Industrial High-Voltage IoT Analyzer',
+        githubLink: '',
+        images: [
+            'Images/Remote-Monitoring-System-Front.jpg',
+            'Images/Remote-Monitoring-System-Back.jpg'
+        ],
+        description: 'An advanced single-board monitoring solution for SRT, SMG, and SWP systems. It performs precision measurements of 1000V DC Battery systems, 3-Phase AC mains (upto 500A), and 100A Solar Arrays (upto 1000V). Equipped with GSM connectivity, it transmits real-time telemetry including Voltage, Current, and Power Factor for all interconnected systems. The design features robust AC surge protection, DC filtering, and AC-DC link filtering.',
+        features: [
+            'Unified Monitoring for SRT, SMG, SWP Systems',
+            '1000V DC Battery Voltage Measurement',
+            '3-Phase AC Measurement (230V/400V)',
+            'High Current Sensing (500A AC / 250A AC)',
+            'Solar String Monitoring (1000V / 100A)',
+            'GSM Connectivity for Remote Telemetry',
+            'Industrial Grade Design with Surge Protection'
+        ],
+        specifications: {
+            'Supported Systems': 'SRT, SMG, SWP',
+            'DC Voltage Range': '0V - 1000V',
+            'AC Voltage Range': '230V / 400V (3-Phase)',
+            'Current Range': '500A AC, 250A AC, 100A Solar',
+            'Connectivity': 'GSM / GPRS',
+            'Protection': 'AC Surge, DC Filter, EMI/EMC'
+        },
+        applications: [
+            {
+                title: 'SRT, SMG, SWP System Analysis',
+                description: 'Comprehensive parameter monitoring and fault detection for these industrial systems.'
+            },
+            {
+                title: 'Solar & Grid Hybrid Plants',
+                description: 'Monitors string voltages, currents, and grid injection parameters remotely.'
             }
         ],
         files: []
