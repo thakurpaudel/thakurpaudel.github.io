@@ -216,6 +216,80 @@ const pcbData = {
             }
         ],
         files: []
+    },
+    'pcb-6': {
+        name: 'RS-232 to CAN Gateway',
+        subtitle: 'Secure Authentication & Protocol Converter',
+        githubLink: '',
+        images: [
+            'Images/pcb-placeholder-3.jpg'
+        ],
+        description: 'A dedicated bridge module designed for secure authentication and protocol conversion. It interfaces RF/NRF card readers via dual circuits and converts data to RS-232 or CAN 2.0B. Built with automotive-grade components, it ensures reliable operation in charging stations and access control systems.',
+        features: [
+            'Dual-Channel CAN 2.0B Interface',
+            'RS-232 Serial Communication',
+            'Integrated RF & NRF Card Reader Support',
+            'Automotive-Grade Components',
+            'Dual Voltage Conversion (5V & 3.3V)',
+            'Wide Input Voltage (12V Nominal)',
+            'Robust EMI/EMC Filtering'
+        ],
+        specifications: {
+            'Protocols': 'CAN 2.0B, RS-232',
+            'Input Voltage': '12V DC',
+            'Onboard Power': '5V & 3.3V Regulators',
+            'Authentication': 'RF / NRF Card Dual Circuit',
+            'Grade': 'Automotive',
+            'Channels': '2x CAN, 1x RS-232'
+        },
+        applications: [
+            {
+                title: 'EV Charging Authentication',
+                description: 'Handles secure user check-in/check-out via RF cards and communicates via CAN.'
+            },
+            {
+                title: 'Industrial Access Control',
+                description: 'Secure gateway for industrial machinery and restricted area access.'
+            }
+        ],
+        files: []
+    },
+    'pcb-7': {
+        name: '4-Channel CAN Multiplexer',
+        subtitle: 'High-Performance Isolated CAN Hub',
+        githubLink: '',
+        images: [
+            'Images/pcb-placeholder-1.jpg'
+        ],
+        description: 'A high-speed centralized hub designed to aggregate multiple isolated CAN buses (such as GBT or CCS2.0 PLC) into a single master bus. Powered by a 480MHz RISC-V processor, it handles high traffic loads, performs real-time error analysis, and provides safe data isolation for critical systems like PMS.',
+        features: [
+            '4x Isolated CAN Interfaces',
+            '1x Master CAN Bus Output',
+            '480MHz RISC-V Architecture',
+            'Real-Time Error Monitoring & Analysis',
+            'High Traffic Load Handling',
+            'Automotive Grade Filtering',
+            'Wide Input Voltage (12V - 30V)'
+        ],
+        specifications: {
+            'Processor': 'RISC-V @ 480MHz',
+            'Memory': '8MB RAM / 512kB Internal',
+            'Input Voltage': '12V - 30V DC',
+            'Interfaces': '4x Isolated CAN, 1x Master CAN',
+            'PCB Layers': '4-Layer',
+            'Isolation': 'Galvanic Isolation on 4 Channels'
+        },
+        applications: [
+            {
+                title: 'Fast Charging Stations',
+                description: 'Merges data from BMS, Power Converters, GBT, and PLC/CCS modules into a central controller.'
+            },
+            {
+                title: 'Complex Vehicle Networks',
+                description: 'segments and monitors traffic between different vehicle domains.'
+            }
+        ],
+        files: []
     }
 };
 
