@@ -140,6 +140,82 @@ const pcbData = {
             }
         ],
         files: []
+    },
+    'pcb-4': {
+        name: 'Charging Management System',
+        subtitle: 'Smart EV Infrastructure Controller',
+        githubLink: '',
+        images: [
+            'Images/pcb-placeholder-1.jpg'
+        ],
+        description: 'A versatile Charging Management System tailored for EV infrastructure. It features robust connectivity options (4G/LTE, WiFi, Ethernet) with automatic failover, enabling real-time telemetry and remote charger control. Includes RFID/NFC authentication for secure user access and comprehensive protection circuitry.',
+        features: [
+            '4G LTE, WiFi, & Ethernet Connectivity',
+            'Automatic Network Failover & Recovery',
+            'RFID/NFC User Authentication',
+            'Real-Time Charging Telemetry',
+            'Remote Start/Stop Control',
+            'Fan Control & Thermal Management',
+            '3x CAN Bus Interfaces',
+            'BLE 5.0 Connectivity',
+            'Input Power Filter (Common/Diff Mode)'
+        ],
+        specifications: {
+            'Connectivity': '4G/LTE, WiFi, Ethernet',
+            'Memory': '16MB Flash, 8MB RAM',
+            'Interfaces': '3x CAN, BLE 5.0, RS232, RFID',
+            'Input Voltage': '12V - 30V DC',
+            'Protection': 'ESD, Common Mode Chokes',
+            'Application': '2-Wheeler & 4-Wheeler Chargers'
+        },
+        applications: [
+            {
+                title: 'EV Charging Stations',
+                description: 'Manages authorization, charging sessions, and telemetry for public or private chargers.'
+            },
+            {
+                title: 'Fleet Management',
+                description: 'Enables remote monitoring and control of fleet charging infrastructure.'
+            }
+        ],
+        files: []
+    },
+    'pcb-5': {
+        name: 'Power Management System',
+        subtitle: 'Uninterruptible Power Supply Unit',
+        githubLink: '',
+        images: [
+            'Images/pcb-placeholder-2.jpg'
+        ],
+        description: 'An advanced Power Management System delivering uninterrupted power. Converts 85V-220V AC to a stable 12V 4A DC output with zero-latency (<10µs) UPS switching via an onboard Li-ion battery backup. Ideal for critical systems requiring high availability.',
+        features: [
+            'Wide AC Input (85V - 220V)',
+            'Stable 12V DC / 4A Output',
+            'Zero-Latency (<10µs) UPS Switching',
+            'Onboard Li-ion Battery Charging',
+            'Advanced Power & Noise Filtering',
+            'Safe Power Conversion',
+            'Compact & Efficient Design'
+        ],
+        specifications: {
+            'Input Voltage': '85V - 220V AC',
+            'Output Voltage': '12V DC',
+            'Max Current': '4A',
+            'Backup': 'Onboard Li-ion Battery',
+            'Switching Time': '< 10µs (Zero Latency)',
+            'Protection': 'Overcurrent, Short Circuit'
+        },
+        applications: [
+            {
+                title: 'Critical Embedded Systems',
+                description: 'Provides fail-safe power for systems that cannot tolerate outages.'
+            },
+            {
+                title: 'Industrial Control Units',
+                description: 'Ensures continuous operation of control logic in industrial environments.'
+            }
+        ],
+        files: []
     }
 };
 
@@ -232,8 +308,8 @@ function updateGallery() {
     mainImg.src = images[currentImageIndex];
 
     // Apply privacy blur to sensitive images
-    // Apply privacy blur to sensitive images (All boards: VCU, Comm, Display)
-    if (currentPCB === pcbData['pcb-1'] || currentPCB === pcbData['pcb-2'] || currentPCB === pcbData['pcb-3']) {
+    // Apply privacy blur to sensitive images (All boards are blurred)
+    if (Object.values(pcbData).includes(currentPCB)) {
         mainImg.classList.add('privacy-blur');
     } else {
         mainImg.classList.remove('privacy-blur');
@@ -253,7 +329,7 @@ function updateGallery() {
         thumb.className = 'pcb-thumbnail' + (index === currentImageIndex ? ' active' : '');
 
         // Apply blur to thumbnails for all boards
-        if (currentPCB === pcbData['pcb-1'] || currentPCB === pcbData['pcb-2'] || currentPCB === pcbData['pcb-3']) {
+        if (Object.values(pcbData).includes(currentPCB)) {
             thumb.classList.add('privacy-blur');
         }
 
