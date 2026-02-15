@@ -6,6 +6,7 @@ const pcbData = {
         subtitle: '4-Layer PCB for Electric Vehicle',
         githubLink: '',
         images: [
+            'Images/P1-VCU-Front-View.jpg',
             'Images/P1-VCU-Board.png',
             'Images/P1-VCU-Back.png',
             'Images/P1-VCU-3D-View.png',
@@ -13,17 +14,16 @@ const pcbData = {
             'Images/P1-VCU-Schemetic.png',
             'Images/P1-VCU-Schemetic-Details.png'
         ],
-        description: 'This is the Vehicle Control Unit (VCU) for the Electric Vehicle. It is a 4-layer PCB designed for motor control applications. It features multiple sensor interfaces, low-power operation, and wireless connectivity. The board is optimized for battery-powered deployment in remote locations.',
+        description: 'The Vehicle Control Unit (VCU) serves as the central brain of the EV. It seamlessly coordinates the motor controller, BMS, and charger while managing auxiliary systems like lights and indicators. Designed for reliability, it ensures your vehicle operates safely and efficiently in all conditions.',
         features: [
-            'Vehicle Control',
-            'On Board Fall & Movement Detection',
-            'On Board Back-up Battery Support',
-            'Multiple sensor interfaces (I2C, SPI, UART)',
-            'CAN Communication',
-            'USB Interface',
-            'Mosfet Driver for the Auxiliary Control',
-            'On-board voltage regulation (3.3V and 5V)',
-            'Temperature range: -40°C to +85°C',
+            'Comprehensive Vehicle Control Logic',
+            'Integrated Fall & Movement Detection',
+            'On-board Backup Battery for Security',
+            'Multiple Sensor Interfaces (I2C, SPI, UART)',
+            'Robust CAN Communication',
+            'USB Interface for Diagnostics',
+            'MOSFET Drivers for Auxiliary Control',
+            'Wide Operating Temperature: -40°C to +85°C',
         ],
         specifications: {
             'PCB Layers': '4-Layer',
@@ -35,7 +35,7 @@ const pcbData = {
         applications: [
             {
                 title: 'Electric Vehicle',
-                description: 'Vehicle Control Unit (VCU) for the Electric Vehicle. It is a 4-layer PCB designed for motor control applications. It features multiple sensor interfaces, low-power operation, and wireless connectivity. The board is optimized for battery-powered deployment in remote locations.'
+                description: 'Functions as the primary controller for electric vehicles, managing motor drive, battery state, safety interlocks, and auxiliary systems.'
             }
         ],
         files: [
@@ -51,17 +51,17 @@ const pcbData = {
             'Images/Comm_Back.png',
             'Images/Comm_PCB.png'
         ],
-        description: 'A versatile communication module featuring BLE,LTE/4G,GPS,GNSS,WiFi,NFC. Designed for portable electronics and battery-powered devices.',
+        description: 'This module bridges the gap between your vehicle and the cloud. Equipped with LTE/4G, Wi-Fi, GPS, and BLE, it enables real-time telemetry, theft detection, and remote monitoring from anywhere in the world.',
         features: [
-            'BLE 5.0 & 4.1',
-            'LTE/4G',
-            'GPS,GNSS',
-            'WiFi',
-            'NFC',
-            'CAN B2.0',
-            'OTA Update',
-            'Low Power Consumption',
-            'Protocol: HTTP, HTTPS,WebSocket, MQTT, TCPIP, UDP, FTP, SMTP, POP3, IMAP'
+            'Dual-Mode Bluetooth (BLE 5.0 & 4.1)',
+            'Global LTE/4G Conectivity',
+            'High-Precision GPS/GNSS',
+            'Wi-Fi 802.11 b/g/n',
+            'NFC for Quick Pairing',
+            'Automotive CAN 2.0 Interface',
+            'Secure OTA Updates',
+            'Ultra-Low Power Consumption',
+            'Protocol Support: MQTT, UDP, TCP/IP, HTTP/S'
         ],
         specifications: {
             'MCU': 'ESP32-S3',
@@ -76,81 +76,67 @@ const pcbData = {
         },
         applications: [
             {
-                title: 'Vehicle Connectivity and Tracking',
-                description: 'Connectivity and tracking system for vehicles. Provide the on-board connectivity for vehicle tracking and monitoring. BLE used for the provide the connectivity with mobile app and Vehilce.'
+                title: 'Vehicle Telemetry & Tracking',
+                description: 'Provides real-time location tracking and vehicle status monitoring via LTE, while allowing seamless mobile app connectivity through BLE.'
             },
             {
-                title: 'IOT Devices',
-                description: 'CAN 2.0 used to communicate with other IOT devices and this board provide the remote connectivity using LTE/4G or Wifi and also supprot the on board HTTP, HTTPS,WebSocket, MQTT, TCPIP, UDP'
+                title: 'Industrial IoT Gateway',
+                description: 'Acts as a robust gateway for IoT devices, aggregating data via CAN bus and transmitting it to the cloud via LTE or Wi-Fi using MQTT/HTTP.'
             },
             {
-                title: 'Protable Wifi Device',
-                description: 'This board can be used as the protable Wifi device. It can be convert the LTE/4G to wifi.'
+                title: 'Portable Hotspot',
+                description: 'Can function as a portable Wi-Fi hotspot, bridging 4G LTE connectivity to local devices.'
             }
         ],
         files: [
         ]
     },
     'pcb-3': {
-        name: 'Display Driver Board ',
-        subtitle: '4-Layer High-Current PCB',
+        name: 'Dashboard Display Unit',
+        subtitle: 'Intelligent Vehicle Interface',
         githubLink: '',
         images: [
-            'Images/pcb-placeholder-3.jpg'
+            'Images/P1-Display-Front.png',
+            'Images/P1-Display-V1-3D.png',
+            'Images/P1-Display-PCB.png'
         ],
-        description: 'High-performance motor driver board capable of controlling DC motors, stepper motors, and servo motors. Features robust protection circuits and heat dissipation design.',
+        description: 'Designed to drive high-resolution TFT displays, this unit functions as the primary driver interface. It communicates via CAN and SPI interfaces for seamless telemetry integration. The robust automotive-grade 4-layer PCB accepts a 12V input and features an on-board 12V-to-5V DC-DC buck converter and a 3.3V linear regulator. To ensure reliability in noisy automotive environments, it includes a Pi power filter for EMI suppression, along with TVS diodes and chokes for CAN common-mode noise filtering.',
         features: [
-            'Dual H-bridge motor drivers',
-            'Current sensing and feedback',
-            'PWM speed control',
-            'Thermal protection',
-            'Reverse polarity protection',
-            'Screw terminals for easy connection'
+            'High-Resolution TFT Display Driver',
+            'CAN & SPI Communication Interfaces',
+            'Automotive-Grade 4-Layer PCB Design',
+            '12V Input with Protection Circuitry',
+            'On-Board 12V to 5V DC-DC Buck Converter',
+            '3.3V Linear Regulator for Logic Power',
+            'Pi Filter for EMI/RFI Suppression',
+            'Common Mode Choke & TVS for CAN Protection',
+            'High-Impact Resistant Design'
         ],
         specifications: {
-            'PCB Layers': '4-Layer',
-            'Board Size': '80mm x 60mm',
-            'Motor Voltage': '6V - 24V',
-            'Max Current': '5A per channel',
-            'Driver IC': 'DRV8871',
-            'Control Interface': 'PWM, I2C',
-            'Design Tool': 'Eagle CAD',
-            'Copper Weight': '2oz'
+            'Architecture': 'ARM Core',
+            'Memory': '64kB Flash, 32kB RAM',
+            'Input Voltage': '12V DC',
+            'PCB Layers': '4-Layer Automotive',
+            'Display Interface': 'SPI / TFT',
+            'Communication': 'CAN 2.0B, SPI',
+            'Power Protection': 'TVS, EMI Pi-Filter, Reverse Polarity',
+            'Regulators': 'DC-DC Buck (5V), Linear (3.3V)'
         },
         applications: [
             {
-                title: 'Robotics',
-                description: 'Drive motors for robotic platforms, autonomous vehicles, and mechatronic systems.'
+                title: 'Electric Vehicle Instrument Cluster',
+                description: 'Displays critical driving data like speed, battery SOC, and warnings with high reliability.'
             },
             {
-                title: 'CNC Machines',
-                description: 'Control stepper motors in 3D printers, laser cutters, and CNC routers.'
+                title: 'Automotive Heads-Up Display (HUD)',
+                description: 'Projects navigation and telemetry data directly into the driver\'s line of sight.'
             },
             {
-                title: 'Industrial Automation',
-                description: 'Motor control in conveyor systems, actuators, and automated machinery.'
+                title: 'Industrial HMI Panels',
+                description: 'Robust display interface for monitoring and controlling industrial machinery.'
             }
         ],
-        files: [
-            {
-                name: 'Schematic PDF',
-                description: 'Complete design',
-                icon: 'fa-file-pdf',
-                link: '#'
-            },
-            {
-                name: 'Gerber Files',
-                description: 'Production files',
-                icon: 'fa-file-zipper',
-                link: '#'
-            },
-            {
-                name: 'Assembly Guide',
-                description: 'Step-by-step assembly',
-                icon: 'fa-file-word',
-                link: '#'
-            }
-        ]
+        files: []
     }
 };
 

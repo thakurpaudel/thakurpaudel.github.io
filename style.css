@@ -790,9 +790,9 @@ body {
     /* Highest priority */
     background-color: rgba(5, 8, 16, 0.85);
     /* Darker overlay */
-    backdrop-filter: blur(8px);
-    /* Strong glass blur */
-    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(16px);
+    /* Stronger glass blur */
+    -webkit-backdrop-filter: blur(16px);
     align-items: center;
     justify-content: center;
     animation: fadeIn 0.3s ease-out;
