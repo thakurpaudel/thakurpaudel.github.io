@@ -352,6 +352,7 @@ const pcbData = {
             'Images/Remote-Assembly-back.png',
             'Images/Front-Image-Remote-System.png',
             'Images/Back-Image-Remote-System.png',
+            'Images/Remote-Monitoring-System-Combine.png',
             'Images/Remote-Monitoring-Image.png',
             'Images/Remote-Monitoring-System-Installation.png'
         ],
