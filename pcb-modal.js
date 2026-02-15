@@ -146,7 +146,12 @@ const pcbData = {
         subtitle: 'Smart EV Infrastructure Controller',
         githubLink: '',
         images: [
-            'Images/pcb-placeholder-1.jpg'
+            'Images/Charging-Station-Install.png',
+            'Images/CMS-Assembly-Photo.png',
+            'Images/CMS-Full-Board-3D.png',
+            'Images/CMS-3D-Image.png',
+            'Images/CMS-Board-PCB.png'
+
         ],
         description: 'A versatile Charging Management System tailored for EV infrastructure. It features robust connectivity options (4G/LTE, WiFi, Ethernet) with automatic failover, enabling real-time telemetry and remote charger control. Includes RFID/NFC authentication for secure user access and comprehensive protection circuitry.',
         features: [
@@ -222,7 +227,9 @@ const pcbData = {
         subtitle: 'Secure Authentication & Protocol Converter',
         githubLink: '',
         images: [
-            'Images/pcb-placeholder-3.jpg'
+            'Images/RS232-to-CAN-Assembly.png',
+            'Images/RS232-to-CAN-3D.png',
+            'Images/RS232-to-CAN-PCB.png'
         ],
         description: 'A dedicated bridge module designed for secure authentication and protocol conversion. It interfaces RF/NRF card readers via dual circuits and converts data to RS-232 or CAN 2.0B. Built with automotive-grade components, it ensures reliable operation in charging stations and access control systems.',
         features: [
@@ -259,7 +266,9 @@ const pcbData = {
         subtitle: 'High-Performance Isolated CAN Hub',
         githubLink: '',
         images: [
-            'Images/pcb-placeholder-1.jpg'
+            'Images/3-to-1-CAN-Assembly.png',
+            'Images/3-to-1-CAN-3D.png',
+            'Images/3-to-1-CAN-PCB.png'
         ],
         description: 'A high-speed centralized hub designed to aggregate multiple isolated CAN buses (such as GBT or CCS2.0 PLC) into a single master bus. Powered by a 480MHz RISC-V processor, it handles high traffic loads, performs real-time error analysis, and provides safe data isolation for critical systems like PMS.',
         features: [
