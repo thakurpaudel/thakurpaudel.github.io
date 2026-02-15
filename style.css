@@ -1807,3 +1807,15 @@ body {
         width: 100%;
     }
 }
+
+/* Privacy Blur - Images are permanently blurred on disk */
+.privacy-blur {
+    /* Kept for cursor indication and protection */
+    cursor: not-allowed;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.privacy-blur:hover {
+    /* No additional filter needed */
+}

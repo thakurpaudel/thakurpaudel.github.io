@@ -6,7 +6,8 @@ const pcbData = {
         subtitle: '4-Layer PCB for Electric Vehicle',
         githubLink: '',
         images: [
-            'Images/P1-VCU-Front-View.jpg',
+            'Images/P1-VCU-Real-Image.png',
+            'Images/P1-VCU-Board-Assembly.png',
             'Images/P1-VCU-Board.png',
             'Images/P1-VCU-Back.png',
             'Images/P1-VCU-3D-View.png',
@@ -225,7 +226,16 @@ function updateGallery() {
     const images = currentPCB.images;
 
     // Update main image
-    document.getElementById('pcbMainImage').src = images[currentImageIndex];
+    const mainImg = document.getElementById('pcbMainImage');
+    mainImg.src = images[currentImageIndex];
+
+    // Apply privacy blur to sensitive images
+    // Apply privacy blur to sensitive images (All VCU images)
+    if (currentPCB === pcbData['pcb-1']) {
+        mainImg.classList.add('privacy-blur');
+    } else {
+        mainImg.classList.remove('privacy-blur');
+    }
 
     // Update counter
     document.getElementById('currentImageIndex').textContent = currentImageIndex + 1;
