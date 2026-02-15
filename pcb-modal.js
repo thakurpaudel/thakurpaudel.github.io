@@ -97,6 +97,8 @@ const pcbData = {
         subtitle: 'Intelligent Vehicle Interface',
         githubLink: '',
         images: [
+            'Images/P1-Display-Front-Image.png',
+            'Images/P1-Display-Real-Image.png',
             'Images/P1-Display-Front.png',
             'Images/P1-Display-V1-3D.png',
             'Images/P1-Display-PCB.png'
@@ -230,8 +232,8 @@ function updateGallery() {
     mainImg.src = images[currentImageIndex];
 
     // Apply privacy blur to sensitive images
-    // Apply privacy blur to sensitive images (All VCU images)
-    if (currentPCB === pcbData['pcb-1']) {
+    // Apply privacy blur to sensitive images (All boards: VCU, Comm, Display)
+    if (currentPCB === pcbData['pcb-1'] || currentPCB === pcbData['pcb-2'] || currentPCB === pcbData['pcb-3']) {
         mainImg.classList.add('privacy-blur');
     } else {
         mainImg.classList.remove('privacy-blur');
@@ -249,6 +251,12 @@ function updateGallery() {
         const thumb = document.createElement('img');
         thumb.src = img;
         thumb.className = 'pcb-thumbnail' + (index === currentImageIndex ? ' active' : '');
+
+        // Apply blur to thumbnails for all boards
+        if (currentPCB === pcbData['pcb-1'] || currentPCB === pcbData['pcb-2'] || currentPCB === pcbData['pcb-3']) {
+            thumb.classList.add('privacy-blur');
+        }
+
         thumb.onclick = () => {
             currentImageIndex = index;
             updateGallery();
