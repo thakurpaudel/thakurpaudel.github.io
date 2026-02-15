@@ -301,6 +301,46 @@ const pcbData = {
             }
         ],
         files: []
+    },
+    'pcb-8': {
+        name: 'CM4 Carrier Board',
+        subtitle: 'Raspberry Pi Compute Module 4 Host',
+        githubLink: '',
+        images: [
+            'Images/CM4-Carrier-Board.png',
+            'Images/CM4-Carrier-Board-Back.png'
+        ],
+        description: 'A dedicated carrier board for the Raspberry Pi Compute Module 4, engineered as a powerful Display Drive Unit. It provides a robust 12V power input with dual 5V on-board converters for peripherals and display power. Key features include an HDMI port, single-channel CAN bus for vehicle communication, an RTC (Real-Time Clock) for precise timekeeping, and an integrated cooling fan controller. Connectivity is maximized with a 40-pin GPIO header, MicroSD slot, dual USB ports, and Micro-USB power backup.',
+        features: [
+            'Raspberry Pi CM4 Socket',
+            'HDMI Output Port',
+            'Single-Channel CAN Bus Interface',
+            'Real-Time Clock (RTC) with Battery',
+            'Integrated Cooling Fan Control',
+            'Dual 5V On-board Power Converters',
+            'MicroSD Card Slot & 40-Pin GPIO',
+            'Dual USB Host & Micro-USB Ports'
+        ],
+        specifications: {
+            'Core Module': 'Raspberry Pi CM4',
+            'Input Voltage': '12V DC',
+            'Regulators': '2x 5V DC-DC Converters',
+            'Display Out': 'HDMI',
+            'Connectivity': 'CAN, USB x2, Micro-USB',
+            'Expansion': '40-Pin GPIO, MicroSD',
+            'Thermal': 'Active Fan Control'
+        },
+        applications: [
+            {
+                title: 'Automotive Digital Cluster',
+                description: 'Drives high-definition digital dashboards with robust vehicle data integration via CAN.'
+            },
+            {
+                title: 'Industrial HMI Gateway',
+                description: 'Serves as an intelligent touch-panel controller with diverse IO and network capabilities.'
+            }
+        ],
+        files: []
     }
 };
 
