@@ -348,8 +348,10 @@ const pcbData = {
         subtitle: 'Industrial High-Voltage IoT Analyzer',
         githubLink: '',
         images: [
-            'Images/Remote-Monitoring-System-Front.jpg',
-            'Images/Remote-Monitoring-System-Back.jpg'
+            'Images/Remote-Assembly-front.png',
+            'Images/Remote-Assembly-back.png',
+            'Images/Front-Image-Remote-System.png',
+            'Images/Back-Image-Remote-System.png'
         ],
         description: 'An advanced single-board monitoring solution for SRT, SMG, and SWP systems. It performs precision measurements of 1000V DC Battery systems, 3-Phase AC mains (upto 500A), and 100A Solar Arrays (upto 1000V). Equipped with GSM connectivity, it transmits real-time telemetry including Voltage, Current, and Power Factor for all interconnected systems. The design features robust AC surge protection, DC filtering, and AC-DC link filtering.',
         features: [
